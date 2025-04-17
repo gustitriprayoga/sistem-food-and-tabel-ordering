@@ -15,7 +15,7 @@ class SettingSeeder extends Seeder
     {
         Setting::create([
             'logo' => 'N/A',
-            'name' => 'N/A',
+            'name' => 'Sistem Pemesanan Menu Dan Meja Niskala',
         ]);
     }
 }
