@@ -52,6 +52,7 @@
     <div class="dark-transparent sidebartoggler"></div>
 
     @include('layouts.backend.scripts')
+    @include('sweetalert::alert')
 </body>
 
 </html>
