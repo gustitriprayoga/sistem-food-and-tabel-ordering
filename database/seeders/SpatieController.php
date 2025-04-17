@@ -21,6 +21,11 @@ class SpatieController extends Seeder
         ]);
 
         Role::create([
+            'name' => 'kithcen',
+            'guard_name' => 'web',
+        ]);
+
+        Role::create([
             'name' => 'user',
             'guard_name' => 'web',
         ]);
