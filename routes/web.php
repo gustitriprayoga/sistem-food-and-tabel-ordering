@@ -35,7 +35,7 @@ Route::prefix('dashboard')->group(function () {
     Route::post('/setting/website', [SettingController::class, 'update'])->name('dashboard.setting.update');
     Route::post('/setting/website/logo', [SettingController::class, 'logoChange'])->name('dashboard.setting.logo');
     Route::post('/setting/website/name', [SettingController::class, 'nameChange'])->name('dashboard.setting.name');
-});
+})->middleware('auth');
 
 // Setting Website
 

@@ -130,8 +130,8 @@
                         height="40" alt="modernize-img" />
                 </div>
                 <div class="john-title">
-                    <h6 class="mb-0 fs-4 fw-semibold">Mathew</h6>
-                    <span class="fs-2">Designer</span>
+                    <h6 class="mb-0 fs-4 fw-semibold">{{ Auth::user()->name }}</h6>
+                    <span class="fs-2">{{ Auth::user()->email }}</span>
                 </div>
 
             </div>

@@ -47,7 +47,7 @@
         @include('layouts.backend.partial.search')
 
         <!--  Shopping Cart -->
-        @include('layouts.backend.partial.cart')
+        {{-- @include('layouts.backend.partial.cart') --}}
     </div>
     <div class="dark-transparent sidebartoggler"></div>
 
