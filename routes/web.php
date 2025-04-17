@@ -44,6 +44,7 @@ Route::prefix('dashboard')->group(function () {
 Route::prefix('meja')->group(function () {
     Route::get('/', [MejaController::class, 'index'])->name('meja.index');
     Route::post('/store', [MejaController::class, 'store'])->name('meja.store');
+    Route::post('/update-posisi', [MejaController::class, 'updatePosisi'])->name('meja.update.posisi');
     Route::get('/edit/{id}', [MejaController::class, 'edit'])->name('meja.edit');
     Route::put('/update/{id}', [MejaController::class, 'update'])->name('meja.update');
     Route::delete('/destroy/{id}', [MejaController::class, 'destroy'])->name('meja.destroy');

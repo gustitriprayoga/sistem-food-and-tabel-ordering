@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Meja;
 use Illuminate\Http\Request;
 
 class MejaController extends Controller
@@ -13,7 +14,16 @@ class MejaController extends Controller
     public function index()
     {
 
-        return view('backend.meja.index');
+        // Sweet Alert
+        $title = 'Hapus Meja!';
+        $text = "Apakah Kamu Ingin Menghapus Meja Ini ?";
+        confirmDelete($title, $text);
+
+        // Logika
+        $meja = Meja::all();
+
+
+        return view('backend.meja.index', compact('meja'));
     }
 
     /**
@@ -29,7 +39,30 @@ class MejaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required|string|max:255|unique:mejas,nama',
+        ]);
+
+        Meja::create([
+            'nama' => $request->nama,
+            'status' => 'tersedia',
+            'pos_x' => 10, // posisi default awal
+            'pos_y' => 10,
+        ]);
+
+        return redirect()->back()->with('success', 'Meja berhasil ditambahkan!');
+    }
+
+
+    public function updatePosisi(Request $request)
+    {
+        $meja = Meja::findOrFail($request->id);
+        $meja->update([
+            'pos_x' => $request->pos_x,
+            'pos_y' => $request->pos_y
+        ]);
+
+        return response()->json(['status' => 'success']);
     }
 
     /**

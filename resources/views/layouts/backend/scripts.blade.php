@@ -12,3 +12,13 @@
 <script src="{{ asset('backend/dist/assets/libs/owl.carousel/dist/owl.carousel.min.js') }}"></script>
 <script src="{{ asset('backend/dist/assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
 <script src="{{ asset('backend/dist/assets/js/dashboards/dashboard.js') }}"></script>
+
+
+{{-- jQuery --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{{-- jQuery UI: draggable dll --}}
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+
+{{-- jQuery UI CSS --}}
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">

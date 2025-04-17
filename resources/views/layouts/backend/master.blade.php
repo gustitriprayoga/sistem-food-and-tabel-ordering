@@ -11,6 +11,8 @@
 
     <!-- Favicon icon-->
     <link rel="shortcut icon" type="image/png" href="{{ 'backend/dist/assets/images/logos/favicon.png' }}" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+
 
     @include('layouts.backend.styles')
 </head>
