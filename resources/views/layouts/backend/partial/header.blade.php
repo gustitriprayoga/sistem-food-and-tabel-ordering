@@ -398,20 +398,11 @@
                       </a>
                     </div>
                     <div class="d-grid py-4 px-7 pt-8">
-                      <div class="upgrade-plan bg-primary-subtle position-relative overflow-hidden rounded-4 p-4 mb-9">
-                        <div class="row">
-                          <div class="col-6">
-                            <h5 class="fs-4 mb-3 fw-semibold">Unlimited Access</h5>
-                            <button class="btn btn-primary">Upgrade</button>
-                          </div>
-                          <div class="col-6">
-                            <div class="m-n4 unlimited-img">
-                              <img src="backend/assets/images/backgrounds/unlimited-bg.png" alt="modernize-img" class="w-100" />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <a href="./main/authentication-login.html" class="btn btn-outline-primary">Log Out</a>
+
+                      <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-primary">Log Out</button>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -1008,7 +999,10 @@
                           </div>
                         </div>
                       </div>
-                      <a href="./main/authentication-login.html" class="btn btn-outline-primary">Log Out</a>
+                      <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-primary">Log Out</button>
+                      </form>
                     </div>
                   </div>
                 </div>

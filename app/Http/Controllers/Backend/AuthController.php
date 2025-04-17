@@ -18,10 +18,18 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (auth()->attempt($credentials)) {
-            return redirect()->route('backend.dashboard')->with('success', 'Login successfully');
+            if (User::where('email', $request->email)->exists()) {
+                if (auth()->user()->hasRole('admin')) {
+                    return redirect()->route('dashboard.index')->with('success', 'Login Berhasil');
+                }
+            } else {
+                auth()->logout();
+                return redirect()->back()->with('error', 'Email Belum Terdaftar');
+            }
+        } else {
+            auth()->logout();
+            return redirect()->back()->with('error', 'Kamu Tidak Memiliki Akses');
         }
-
-        return redirect()->back()->with('error', 'Invalid credentials');
     }
 
     public function register()
@@ -48,4 +56,9 @@ class AuthController extends Controller
         return redirect()->route('backend.dashboard')->with('success', 'Registration successful');
     }
 
+    public function logout()
+    {
+        auth()->logout();
+        return redirect()->route('login')->with('success', 'Logout Berhasil');
+    }
 }
