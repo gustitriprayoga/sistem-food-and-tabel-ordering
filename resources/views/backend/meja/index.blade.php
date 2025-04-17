@@ -41,18 +41,18 @@
     <div class="w-100 d-flex justify-content-center">
         <div id="denah" style="width: 800px; height: 600px;" class="position-relative border rounded bg-light">
             @foreach ($meja as $item)
-                <div class="meja position-absolute d-flex align-items-center justify-content-center text-white fw-bold shadow"
+                <div class="meja position-absolute d-flex flex-column justify-content-start text-white fw-bold shadow"
                     data-id="{{ $item->id }}"
                     style="width: 60px; height: 60px; border-radius: 10px;
-                       left: {{ $item->pos_x }}px; top: {{ $item->pos_y }}px;
-                       background-color: {{ match($item->status) {
-                           'tersedia' => '#28a745',
-                           'booking' => '#FFDE59',
-                           'tidak tersedia' => '#E4080A',
-                           default => '#ffffff',
-                       } }};
-                       cursor: move;">
-                    {{ $item->name }}
+                   left: {{ $item->pos_x }}px; top: {{ $item->pos_y }}px;
+                   background-color: {{ match ($item->status) {
+                       'tersedia' => '#28a745',
+                       'booking' => '#FFDE59',
+                       'tidak tersedia' => '#E4080A',
+                       default => '#ffffff',
+                   } }};
+                   cursor: move;">
+                    <div class="mt-1">{{ $item->nama }}</div>
                 </div>
             @endforeach
         </div>
@@ -90,6 +90,7 @@
                             console.log('Posisi meja disimpan');
                         }
                     });
+
                 }
             });
         });
