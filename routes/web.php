@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\MasterData\UserController;
 use App\Http\Controllers\Backend\MasterData\RoleController;
 use App\Http\Controllers\Backend\MasterData\PermissionController;
+use App\Http\Controllers\Frontend\FrontendController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,9 +22,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [FrontendController::class, 'home'])->name('home');
 
 Route::prefix('/auth')->group(function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -77,3 +76,4 @@ Route::prefix('master-data')->middleware('auth')->group(function () {
     Route::get('/role', [RoleController::class, 'index'])->name('role.index');
     Route::get('/permission', [PermissionController::class, 'index'])->name('permission.index');
 });
+
