@@ -61,7 +61,7 @@
                     <div class="card overflow-hidden">
                         <div class="position-relative">
                             <a href="javascript:void(0)">
-                                <img src="{{ asset('backend/dist/assets/images/products/s4.jpg') }}" class="card-img-top"
+                                <img src="{{ asset('backend/dist/assets/images/products/empty-shopping-bag.gif') }}" class="card-img-top"
                                     alt="modernize-img">
                             </a>
                             <a href="#"
@@ -117,7 +117,7 @@
                     <div class="card overflow-hidden">
                         <div class="position-relative">
                             <a href="javascript:void(0)">
-                                <img src="{{ asset('backend/dist/assets/images/products/s4.jpg') }}" class="card-img-top"
+                                <img src="{{ asset('backend/dist/assets/images/products/empty-shopping-bag.gif') }}" class="card-img-top"
                                     alt="modernize-img">
                             </a>
                             <a href="#"
@@ -138,7 +138,7 @@
                                 </ul>
                             </div>
                             <div class="d-flex align-items-center justify-content-between">
-                                <a href="#" class="btn btn-danger"><i class="ti ti-trash"> |</i> Hapus</a>
+                                <a href="{{ route('menu.destroy', $item->id) }}" class="btn btn-danger" data-confirm-delete="true"><i class="ti ti-trash"> | </i>Hapus</a>
                                 <a href="{{ route('menu.edit', $item->id ) }}" class="btn btn-warning"><i class="ti ti-edit"> |</i> Edit</a>
                             </div>
                         </div>
@@ -173,7 +173,7 @@
                     <div class="card overflow-hidden">
                         <div class="position-relative">
                             <a href="javascript:void(0)">
-                                <img src="{{ asset('backend/dist/assets/images/products/s4.jpg') }}" class="card-img-top"
+                                <img src="{{ asset('backend/dist/assets/images/products/empty-shopping-bag.gif') }}" class="card-img-top"
                                     alt="modernize-img">
                             </a>
                             <a href="#"
@@ -194,7 +194,7 @@
                                 </ul>
                             </div>
                             <div class="d-flex align-items-center justify-content-between">
-                                <a href="#" class="btn btn-danger"><i class="ti ti-trash"> |</i> Hapus</a>
+                                <a href="{{ route('menu.destroy', $item->id) }}" class="btn btn-danger" data-confirm-delete="true"><i class="ti ti-trash"> | </i>Hapus</a>
                                 <a href="{{ route('menu.edit', $item->id ) }}" class="btn btn-warning"><i class="ti ti-edit"> |</i> Edit</a>
                             </div>
                         </div>

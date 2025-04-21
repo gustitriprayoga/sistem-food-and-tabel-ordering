@@ -41,16 +41,25 @@ class MejaController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255|unique:mejas,nama',
+            'kode' => 'required|string|max:255|unique:mejas,kode',
+            'bentuk' => 'required|string|max:255',
         ]);
 
-        Meja::create([
-            'nama' => $request->nama,
-            'status' => 'tersedia',
-            'pos_x' => 10, // posisi default awal
-            'pos_y' => 10,
-        ]);
+        try {
+            Meja::create([
+                'nama' => $request->nama,
+                'kode' => $request->kode, // jika kamu pakai kode sebagai nama
+                'bentuk' => $request->bentuk,
+                'pos_x' => 0,
+                'pos_y' => 0,
+                'status' => 'tersedia'
+            ]);
 
-        return redirect()->back()->with('success', 'Meja berhasil ditambahkan!');
+            return redirect()->back()->with('success', 'Meja berhasil ditambahkan!');
+        } catch (\Throwable $th) {
+            //throw $th;
+            return redirect()->back()->with('error', 'Meja gagal ditambahkan!')->withInput();
+        }
     }
 
 
@@ -92,8 +101,11 @@ class MejaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $meja = Meja::findOrFail($request->id);
+        $meja->delete();
+
+        return redirect()->back()->with('success', 'Meja berhasil dihapus.');
     }
 }

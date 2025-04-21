@@ -3,7 +3,7 @@
         <!-- Start Vertical Layout Sidebar -->
         <!-- ---------------------------------- -->
         <div class="brand-logo d-flex align-items-center justify-content-between">
-            <a href="#" class="text-nowrap logo-img">
+            <a href="{{ route('dashboard.index') }}" class="text-nowrap logo-img">
 
                 @if ($settings->logo == 'N/A')
                     <img src="{{ asset('backend/dist/assets/images/logos/dark-logo.svg') }}" class="dark-logo" alt="Logo-Dark" />
@@ -33,7 +33,7 @@
                 <!-- Dashboard -->
                 <!-- ---------------------------------- -->
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#" id="get-url" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('dashboard.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-aperture"></i>
                         </span>
@@ -41,40 +41,10 @@
                     </a>
                 </li>
 
+                @role('admin')
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">Menu</span>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                        <span class="d-flex">
-                            <i class="ti ti-user-plus"></i>
-                        </span>
-                        <span class="hide-menu">Menu</span>
-                    </a>
-                    <ul aria-expanded="false" class="collapse first-level">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">List Menu</span>
-                            </a>
-                        </li>
-                        {{-- <li class="sidebar-item">
-                            <a href="./main/authentication-register2.html" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Menu</span>
-                            </a>
-                        </li> --}}
-                    </ul>
-                </li>
-
-                <li class="nav-small-cap">
-                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">Meja</span>
+                    <span class="hide-menu">Management</span>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
@@ -103,6 +73,37 @@
                     </ul>
                 </li>
 
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Master Data</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                        <span class="d-flex">
+                            <i class="ti ti-user-plus"></i>
+                        </span>
+                        <span class="hide-menu">Data</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse first-level">
+                        <li class="sidebar-item">
+                            <a href="{{ route('user.index') }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">User</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('menu.index') }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Menu</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <!-- ---------------------------------- -->
                 <!-- Apps -->
                 <!-- ---------------------------------- -->
@@ -113,13 +114,13 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('dashboard.setting.index') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-setting"></i>
+                            <i class="ti ti-settings"></i>
                         </span>
                         <span class="hide-menu">Website</span>
                     </a>
                 </li>
 
-
+                @endrole
             </ul>
         </nav>
 

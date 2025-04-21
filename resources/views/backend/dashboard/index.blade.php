@@ -4,85 +4,168 @@
 
 @section('content')
 
-<!--  Owl carousel -->
-<div class="owl-carousel counter-carousel owl-theme">
-    <div class="item">
-        <div class="card border-0 zoom-in bg-primary-subtle shadow-none">
-            <div class="card-body">
-                <div class="text-center">
-                    <img src="backend/dist/assets/images/svgs/icon-user-male.svg" width="50"
-                        height="50" class="mb-3" alt="modernize-img" />
-                    <p class="fw-semibold fs-3 text-primary mb-1">
-                        Employsssssees
-                    </p>
-                    <h5 class="fw-semibold text-primary mb-0">96</h5>
+    <!--  Owl carousel -->
+    <div class="row">
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <div
+                                class="bg-warning-subtle text-success rounded d-flex align-items-center p-8 justify-content-center">
+                                <i class="ti ti-basket fs-8"></i>
+                            </div>
+                        </div>
+                        <div class="col-9 d-flex align-items-center justify-content-end text-end">
+                            <div>
+                                <h4 class="card-title">{{ $countMakanan }}</h4>
+                                <h6 class="card-subtitle mb-0">Makanan</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress mt-3 text-bg-light">
+                        <div class="progress-bar text-bg-success" role="progressbar" style="width: 26%; height: 6px;"
+                            aria-valuenow="{{ $countMakanan }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="mt-2">
+                        <a href="{{ route('menu.index') }}" class="btn btn-primary btn-sm"> <i class="ti ti-plus"> |</i> Cek Semua </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="item">
-        <div class="card border-0 zoom-in bg-warning-subtle shadow-none">
-            <div class="card-body">
-                <div class="text-center">
-                    <img src="backend/dist/assets/images/svgs/icon-briefcase.svg" width="50"
-                        height="50" class="mb-3" alt="modernize-img" />
-                    <p class="fw-semibold fs-3 text-warning mb-1">Clients</p>
-                    <h5 class="fw-semibold text-warning mb-0">3,650</h5>
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <div
+                                class="bg-warning-subtle text-primary rounded d-flex align-items-center p-8 justify-content-center">
+                                <i class="ti ti-basket fs-8"></i>
+                            </div>
+                        </div>
+                        <div class="col-9 d-flex align-items-center justify-content-end text-end">
+                            <div>
+                                <h4 class="card-title">{{ $countMinuman }}</h4>
+                                <h6 class="card-subtitle mb-0">Minuman</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress mt-3 text-bg-light">
+                        <div class="progress-bar text-bg-primary" role="progressbar" style="width: 26%; height: 6px;"
+                            aria-valuenow="{{ $countMinuman }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="mt-2">
+                        <a href="{{ route('menu.index') }}" class="btn btn-primary btn-sm"> <i class="ti ti-plus"> |</i> Cek Semua </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="item">
-        <div class="card border-0 zoom-in bg-info-subtle shadow-none">
-            <div class="card-body">
-                <div class="text-center">
-                    <img src="backend/dist/assets/images/svgs/icon-mailbox.svg" width="50"
-                        height="50" class="mb-3" alt="modernize-img" />
-                    <p class="fw-semibold fs-3 text-info mb-1">Projects</p>
-                    <h5 class="fw-semibold text-info mb-0">356</h5>
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <div
+                                class="bg-warning-subtle text-warning rounded d-flex align-items-center p-8 justify-content-center">
+                                <i class="ti ti-basket fs-8"></i>
+                            </div>
+                        </div>
+                        <div class="col-9 d-flex align-items-center justify-content-end text-end">
+                            <div>
+                                <h4 class="card-title">{{ $countSnack }}</h4>
+                                <h6 class="card-subtitle mb-0">Snack</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress mt-3 text-bg-light">
+                        <div class="progress-bar text-bg-warning" role="progressbar" style="width: 26%; height: 6px;"
+                            aria-valuenow="{{ $countSnack }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="mt-2">
+                        <a href="{{ route('menu.index') }}" class="btn btn-primary btn-sm"> <i class="ti ti-plus"> |</i> Cek Semua </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="item">
-        <div class="card border-0 zoom-in bg-danger-subtle shadow-none">
-            <div class="card-body">
-                <div class="text-center">
-                    <img src="backend/dist/assets/images/svgs/icon-favorites.svg" width="50"
-                        height="50" class="mb-3" alt="modernize-img" />
-                    <p class="fw-semibold fs-3 text-danger mb-1">Events</p>
-                    <h5 class="fw-semibold text-danger mb-0">696</h5>
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <div
+                                class="bg-primary-subtle text-primary rounded d-flex align-items-center p-8 justify-content-center">
+                                <i class="ti ti-chart-pie fs-8"></i>
+                            </div>
+                        </div>
+                        <div class="col-9 d-flex align-items-center justify-content-end text-end">
+                            <div>
+                                <h4 class="card-title">{{ $countMeja }}</h4>
+                                <h6 class="card-subtitle mb-0">Total Meja</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress mt-3 text-bg-light">
+                        <div class="progress-bar text-bg-primary" role="progressbar" style="width: 26%; height: 6px;"
+                            aria-valuenow="{{ $countMeja }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="item">
-        <div class="card border-0 zoom-in bg-success-subtle shadow-none">
-            <div class="card-body">
-                <div class="text-center">
-                    <img src="backend/dist/assets/images/svgs/icon-speech-bubble.svg"
-                        width="50" height="50" class="mb-3" alt="modernize-img" />
-                    <p class="fw-semibold fs-3 text-success mb-1">Total Menu</p>
-                    <h5 class="fw-semibold text-success mb-0">$96k</h5>
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <div
+                                class="bg-danger-subtle text-danger rounded d-flex align-items-center p-8 justify-content-center">
+                                <i class="ti ti-user-plus fs-8"></i>
+                            </div>
+                        </div>
+                        <div class="col-9 d-flex align-items-center justify-content-end text-end">
+                            <div>
+                                <h4 class="card-title">{{ $countUser }}</h4>
+                                <h6 class="card-subtitle mb-0">Total Pengguna</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress mt-3 text-bg-light">
+                        <div class="progress-bar text-bg-danger" role="progressbar" style="width: 26%; height: 6px;"
+                            aria-valuenow="{{ $countUser }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="item">
-        <div class="card border-0 zoom-in bg-info-subtle shadow-none">
-            <div class="card-body">
-                <div class="text-center">
-                    <img src="backend/dist/assets/images/svgs/icon-connect.svg" width="50"
-                        height="50" class="mb-3" alt="modernize-img" />
-                    <p class="fw-semibold fs-3 text-info mb-1">Reports</p>
-                    <h5 class="fw-semibold text-info mb-0">59</h5>
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <div
+                                class="bg-success-subtle text-success rounded d-flex align-items-center p-8 justify-content-center">
+                                <i class="ti ti-bell fs-8"></i>
+                            </div>
+                        </div>
+                        <div class="col-9 d-flex align-items-center justify-content-end text-end">
+                            <div>
+                                <h4 class="card-title">156</h4>
+                                <h6 class="card-subtitle mb-0">
+                                    New Notifications
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress mt-3 text-bg-light">
+                        <div class="progress-bar text-bg-success" role="progressbar" style="width: 26%; height: 6px;"
+                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<!--  Row 1 -->
 
 
-
+    </div>
+    <!--  Row 1 -->
 @endsection

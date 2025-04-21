@@ -28,46 +28,90 @@
         </div>
     </div>
 
-    <div class="mb-3">
-        <form method="POST" action="{{ route('meja.store') }}">
-            @csrf
-            <div class="input-group" style="max-width: 300px;">
-                <input type="text" name="nama" class="form-control" placeholder="Nama Meja (misal: A1)" required>
-                <button class="btn btn-primary" type="submit">Tambah Meja</button>
-            </div>
-        </form>
+    <div class="row d-flex">
+        <!-- Form Tambah Meja -->
+        <div class="mb-3">
+            <form method="POST" action="{{ route('meja.store') }}">
+                @csrf
+                <div class="row g-2 align-items-center">
+                    <div class="col-auto">
+                        <input type="text" name="nama" class="form-control" placeholder="Nama Meja (misal: Meja 1)"
+                            required>
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" name="kode" class="form-control" placeholder="Kode Meja (misal: M1)"
+                            required>
+                    </div>
+                    <div class="col-auto">
+                        <select name="bentuk" class="form-select" required>
+                            <option value="kotak">Kotak</option>
+                            <option value="bulat">Bulat</option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-primary" type="submit">Tambah Meja</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Form Hapus Meja -->
+        <div class="mb-3 mt-3">
+            <form method="POST" action="{{ route('meja.destroy') }}">
+                @csrf
+                @method('DELETE')
+                <div class="row g-2 align-items-center">
+                    <div class="col-auto">
+                        <select name="id" class="form-select" required>
+                            <option value="">Pilih Meja untuk Dihapus</option>
+                            @foreach ($meja as $item)
+                                <option value="{{ $item->id }}">{{ $item->nama }} ({{ $item->kode }})</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <a href="{{ route('meja.destroy', ['id' => $item->id]) }}" class="btn btn-danger"
+                            data-confirm-delete="true">
+                            Delete
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <div class="w-100 d-flex justify-content-center">
-        <div id="denah" style="width: 800px; height: 600px;" class="position-relative border rounded bg-light">
+
+
+    <!-- Denah Meja -->
+    <div class="container-fluid px-0">
+        <div class="denah-wrapper position-relative w-100 border rounded overflow-hidden"
+            style="aspect-ratio: 9/16; background-image: url('{{ asset('backend/images/denah/denah.png') }}'); background-size: cover; background-position: center;">
             @foreach ($meja as $item)
-                <div class="meja position-absolute d-flex flex-column justify-content-start text-white fw-bold shadow"
+                <div class="meja position-absolute d-flex flex-column justify-content-center align-items-center text-white fw-bold shadow"
                     data-id="{{ $item->id }}"
-                    style="width: 60px; height: 60px; border-radius: 10px;
-                   left: {{ $item->pos_x }}px; top: {{ $item->pos_y }}px;
-                   background-color: {{ match ($item->status) {
-                       'tersedia' => '#28a745',
-                       'booking' => '#FFDE59',
-                       'tidak tersedia' => '#E4080A',
-                       default => '#ffffff',
-                   } }};
-                   cursor: move;">
-                    <div class="mt-1">{{ $item->nama }}</div>
+                    style="width: 5.5vw; height: 5.5vw;
+                        max-width: 60px; max-height: 60px;
+                        border-radius: {{ $item->bentuk === 'bulat' ? '50%' : '10px' }};
+                        left: calc({{ $item->pos_x }} / 1080 * 100%);
+                        top: calc({{ $item->pos_y }} / 1920 * 100%);
+                        background-color: {{ match ($item->status) {
+                            'tersedia' => '#28a745',
+                            'booking' => '#FFDE59',
+                            'tidak tersedia' => '#E4080A',
+                            default => '#ffffff',
+                        } }};
+                        cursor: move;">
+                    <div class="text-center">{{ $item->kode }}</div>
                 </div>
             @endforeach
         </div>
     </div>
 
-    <!-- Load jQuery -->
+    <!-- jQuery & jQuery UI -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- Load jQuery UI -->
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
-
-    <!-- Style jQuery UI -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
 
-    <!-- Baru jalankan skrip kamu -->
     <script>
         $(function() {
             $('.meja').draggable({
@@ -90,7 +134,6 @@
                             console.log('Posisi meja disimpan');
                         }
                     });
-
                 }
             });
         });

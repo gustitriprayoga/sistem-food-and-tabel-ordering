@@ -14,7 +14,9 @@ class MejaSeeder extends Seeder
     public function run(): void
     {
         Meja::create([
+            'kode' => 'M1',
             'nama' => 'Meja 1',
+            'bentuk' => 'kotak',
             'pos_x' => 0,
             'pos_y' => 0,
             'status' => 'Tersedia',
@@ -23,6 +25,8 @@ class MejaSeeder extends Seeder
         ]);
 
         Meja::create([
+            'kode' => 'M2',
+            'bentuk' => 'kotak',
             'nama' => 'Meja 2',
             'pos_x' => 1,
             'pos_y' => 0,
