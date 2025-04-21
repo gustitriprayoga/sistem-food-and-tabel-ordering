@@ -1,51 +1,101 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <link rel="icon" href="images/icon.png" type="image/gif" sizes="16x16">
+    <title>Niskala Cafe - @yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cafe Niskala - @yield('title')</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <!-- CSS Files
+    ================================================== -->
+    <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('frontend/css/plugins.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('frontend/css/coloring.css') }}" type="text/css">
+
+    <!-- css for scheme color -->
+    <link rel="stylesheet" href="{{ asset('frontend/css/colors/maroon-gold.css') }}" type="text/css" id="colors">
+
+    <!-- Slider Revolution Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/revolution/css/settings.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/revolution/css/layers.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/revolution/css/navigation.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/rev-settings.css') }}">
+
 </head>
 
-<body class="bg-gray-100 text-gray-800">
+<body>
 
-    <!-- Navbar -->
-    <nav class="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-amber-600">Cafe Niskala</a>
-            <button id="menu-toggle" class="md:hidden text-2xl text-amber-600 focus:outline-none">
-                &#9776;
-            </button>
-            <div id="mobile-menu" class="hidden flex-col md:flex md:flex-row md:space-x-4 md:items-center">
-                <a href="#" class="py-2 px-4 hover:text-amber-500">Beranda</a>
-                <a href="#" class="py-2 px-4 hover:text-amber-500">Menu</a>
-                <a href="#" class="py-2 px-4 hover:text-amber-500">Reservasi</a>
-                <a href="#kontak" class="py-2 px-4 hover:text-amber-500">Kontak</a>
-            </div>
+    <div id="wrapper">
+
+        <!-- header begin -->
+        @include('layouts.frontend.header')
+        <!-- header close -->
+
+        <!-- content begin -->
+        <div id="content" class="no-bottom no-top">
+
+            @yield('content')
+
         </div>
-    </nav>
 
-    <!-- Konten -->
-    <div class="pt-24 min-h-screen">
-        @yield('content')
+
+        <!-- footer begin -->
+        @include('layouts.frontend.footer')
+        <!-- footer close -->
+
+        <div id="preloader">
+            <div class="preloader1"></div>
+        </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-amber-600 text-white py-6 mt-10">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p>&copy; {{ date('Y') }} Cafe Niskala. All rights reserved.</p>
-        </div>
-    </footer>
 
-    <!-- Toggle Script -->
+    <!-- Javascript Files
+            ================================================== -->
+    <script src="{{ asset('frontend/js/plugins.js') }}"></script>
+    <script src="frontend/js/designesia.js"></script>
+
+    <!-- RS5.0 Core JS Files -->
+    <script src="{{ asset('frontend/revolution/js/jquery.themepunch.tools.min.js?rev=5.0') }}"></script>
+    <script src="{{ asset('frontend/revolution/js/jquery.themepunch.revolution.min.js?rev=5.0') }}"></script>
+
+    <!-- RS5.0 Extensions Files -->
+    <script src="{{ asset('frontend/revolution/js/extensions/revolution.extension.video.min.js') }}"></script>
+    <script src="{{ asset('frontend/revolution/js/extensions/revolution.extension.slideanims.min.js') }}"></script>
+    <script src="{{ asset('frontend/revolution/js/extensions/revolution.extension.layeranimation.min.js') }}"></script>
+    <script src="{{ asset('frontend/revolution/js/extensions/revolution.extension.navigation.min.js') }}"></script>
+    <script src="{{ asset('frontend/revolution/js/extensions/revolution.extension.actions.min.js') }}"></script>
+    <script src="{{ asset('frontend/revolution/js/extensions/revolution.extension.kenburn.min.js') }}"></script>
+    <script src="{{ asset('frontend/revolution/js/extensions/revolution.extension.migration.min.js') }}"></script>
+    <script src="{{ asset('frontend/revolution/js/extensions/revolution.extension.parallax.min.js') }}"></script>
+
     <script>
-        const toggleBtn = document.getElementById('menu-toggle');
-        const menu = document.getElementById('mobile-menu');
-
-        toggleBtn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
+        jQuery(document).ready(function() {
+            // revolution slider
+            jQuery("#revolution-slider").revolution({
+                sliderType: "standard",
+                sliderLayout: "fullscreen",
+                delay: 3500,
+                navigation: {
+                    arrows: {
+                        enable: true
+                    }
+                },
+                parallax: {
+                    type: "mouse",
+                    origo: "slidercenter",
+                    speed: 2000,
+                    levels: [2, 3, 4, 5, 6, 7, 12, 16, 10, 50],
+                },
+                spinner: "off",
+                gridwidth: 1140,
+                gridheight: 600,
+                disableProgressBar: "on"
+            });
         });
     </script>
 

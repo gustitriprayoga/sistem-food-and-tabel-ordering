@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FrontendController::class, 'home'])->name('home');
 Route::get('/booking', [FrontendController::class, 'booking'])->name('booking');
+Route::get('/semua-menu', [FrontendController::class, 'menu'])->name('semuamenu');
 
 Route::prefix('/auth')->group(function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');

@@ -20,4 +20,11 @@ class FrontendController extends Controller
     {
         return view('frontend.booking');
     }
+
+    public function menu()
+    {
+        $menu = Produk::all();
+
+        return view('frontend.menu', compact('menu'));
+    }
 }
