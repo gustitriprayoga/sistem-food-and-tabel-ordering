@@ -15,4 +15,9 @@ class FrontendController extends Controller
 
         return view('frontend.index', compact('menu'));
     }
+
+    public function booking()
+    {
+        return view('frontend.booking');
+    }
 }

@@ -1,5 +1,7 @@
 @extends('layouts.frontend.master')
 
+@section('title', 'Selamat Datang di Cafe Niskala')
+
 @section('content')
     <!-- Hero Section -->
     <section class="bg-cover bg-center h-screen flex items-center justify-center"
@@ -10,7 +12,7 @@
             <p class="text-base md:text-lg mb-6">Pesan menu favorit & reservasi meja kini lebih mudah dan cepat</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="#" class="bg-yellow-400 text-black px-6 py-3 rounded-lg hover:bg-yellow-300">Lihat Menu</a>
-                <a href="#" class="bg-white text-black px-6 py-3 rounded-lg hover:bg-gray-200">Booking Sekarang</a>
+                <a href="{{ route('booking') }}" class="bg-white text-black px-6 py-3 rounded-lg hover:bg-gray-200">Booking Sekarang</a>
             </div>
         </div>
     </section>
