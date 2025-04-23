@@ -6,7 +6,6 @@
 /storage/*.key
 /vendor
 .env
-/Doc/*
 .env.backup
 .env.production
 .phpunit.result.cache
