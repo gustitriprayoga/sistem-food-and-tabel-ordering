@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('pesanans', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_pesanan')->unique();
+            // Relasi bisa null jika pelanggan tidak login
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+            // Relasi bisa null jika pesanan tidak terikat reservasi
+            $table->foreignId('reservasi_id')->nullable()->constrained('reservasi')->onDelete('set null');
+            $table->string('nama_pelanggan');
+            $table->string('telepon_pelanggan');
+            $table->decimal('total_harga', 10, 2);
+            $table->enum('tipe_pesanan', ['dine_in', 'take_away'])->default('dine_in');
+            $table->enum('status', ['keranjang', 'menunggu_pembayaran', 'diproses', 'selesai', 'dibatalkan'])->default('keranjang');
             $table->timestamps();
         });
     }

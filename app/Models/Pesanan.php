@@ -8,4 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Pesanan extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function reservasi()
+    {
+        return $this->belongsTo(Reservasi::class);
+    }
+
+    public function DetailPesanan()
+    {
+        return $this->hasMany(DetailPesanan::class);
+    }
 }

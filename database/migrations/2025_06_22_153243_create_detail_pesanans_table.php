@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('detail_pesanans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('pesanan_id')->constrained('pesanan')->onDelete('cascade');
+            // Terhubung ke variasi spesifik yang dipesan
+            $table->foreignId('menu_variasi_id')->constrained('menu_variasi')->onDelete('cascade');
+            $table->integer('jumlah');
+            $table->decimal('harga_saat_pesan', 10, 2);
             $table->timestamps();
         });
     }
