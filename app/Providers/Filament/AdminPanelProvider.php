@@ -7,6 +7,7 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -30,6 +31,25 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->navigationGroups([
+                NavigationGroup::make()
+                    ->label('Manajemen Reservasi')
+                    ->icon('heroicon-o-calendar'),
+                NavigationGroup::make()
+                     ->label('Manajemen Menu')
+                     ->icon('heroicon-o-shopping-cart'),
+                NavigationGroup::make()
+                    ->label('Manajemen Meja')
+                    ->icon('heroicon-o-table-cells'),
+                NavigationGroup::make()
+                    ->label('Manajemen Pengguna')
+                    ->icon('heroicon-o-users'),
+
+                NavigationGroup::make()
+                    ->label(fn (): string => __('navigation.settings'))
+                    ->icon('heroicon-o-cog-6-tooth')
+                    ->collapsed(),
+            ])
             ->colors([
                 'primary' => Color::Amber,
             ])

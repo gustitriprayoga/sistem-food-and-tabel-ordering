@@ -17,7 +17,23 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Manajemen Pengguna';
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasRole(['admin']);
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->hasRole(['admin']);
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()?->hasAnyRole(['admin']);
+    }
+
 
     public static function form(Form $form): Form
     {

@@ -22,4 +22,11 @@ class Meja extends Model
         // Parameter ketiga ('id') adalah primary key di tabel 'denah'
         return $this->hasMany(Meja::class, 'denah_id', 'id');
     }
+
+    public function denah()
+    {
+        return $this->belongsTo(Denah::class, 'denah_id');
+    }
+
+
 }

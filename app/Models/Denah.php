@@ -17,4 +17,6 @@ class Denah extends Model
         // Parameter ketiga ('id') adalah primary key di tabel 'denah'
         return $this->hasMany(Meja::class, 'denah_id', 'id');
     }
+
+    
 }

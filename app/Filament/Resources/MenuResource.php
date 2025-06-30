@@ -18,7 +18,24 @@ class MenuResource extends Resource
 {
     protected static ?string $model = Menu::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static ?string $navigationGroup = 'Manajemen Menu';
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasRole(['admin', 'karyawan']);
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->hasRole(['admin']);
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()?->hasAnyRole(['admin']);
+    }
+
 
     public static function form(Form $form): Form
     {

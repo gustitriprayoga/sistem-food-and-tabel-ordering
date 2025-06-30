@@ -7,10 +7,17 @@ use Filament\Pages\Page;
 
 class DenahInteraktif extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-map';
     protected static string $view = 'filament.pages.denah-interaktif';
-    protected static ?string $navigationGroup = 'Manajemen Kafe';
+
+    protected static ?string $navigationGroup = 'Manajemen Meja';
+
     protected static ?string $title = 'Denah Interaktif';
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasRole(['admin']);
+    }
+
 
     // Properti untuk menyimpan data denah yang akan dikirim ke view
     public $semuaDenah;
@@ -20,8 +27,6 @@ class DenahInteraktif extends Page
     {
         // Ambil semua denah dari database dan kirimkan ke properti publik
         $this->semuaDenah = Denah::where('aktif', true)->get();
-
-        // dd($this->semuaDenah);
 
     }
 }

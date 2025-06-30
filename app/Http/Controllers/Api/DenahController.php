@@ -25,6 +25,7 @@ class DenahController extends Controller
                     'id' => $meja->id,
                     'nama' => $meja->nama,
                     'kapasitas' => $meja->kapasitas,
+                    'status' => $meja->status,
                     'posisi_x' => $meja->posisi_x,
                     'posisi_y' => $meja->posisi_y,
                 ];

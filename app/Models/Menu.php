@@ -20,4 +20,9 @@ class Menu extends Model
     {
         return $this->belongsTo(KategoriMenu::class);
     }
+
+    public function detailReservasi()
+    {
+        return $this->hasMany(DetailReservasi::class);
+    }
 }

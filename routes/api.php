@@ -23,5 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route untuk mengambil semua meja dalam sebuah denah
 Route::get('/denah/{denah}/meja', [DenahController::class, 'getMeja']);
 
+
 // Route untuk menyimpan posisi baru sebuah meja
 Route::post('/meja/{meja}/posisi', [DenahController::class, 'updatePosisiMeja']);

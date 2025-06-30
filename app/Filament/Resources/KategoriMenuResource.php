@@ -17,7 +17,25 @@ class KategoriMenuResource extends Resource
 {
     protected static ?string $model = KategoriMenu::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasRole(['admin', 'karyawan']);
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->hasRole(['admin']);
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()?->hasAnyRole(['admin']);
+    }
+
+
+
+
+    protected static ?string $navigationGroup = 'Manajemen Menu';
 
     public static function form(Form $form): Form
     {

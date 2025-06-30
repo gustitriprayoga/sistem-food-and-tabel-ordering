@@ -31,7 +31,7 @@ class ReservasiSeeder extends Seeder
                 'total_bayar' => 0, // Inisialisasi, akan diupdate
                 'metode_pembayaran' => fake()->randomElement(['kasir', 'transfer_bank', 'e_wallet']),
                 'tipe_pesanan' => 'makan_ditempat',
-                'status' => fake()->randomElement(['dikonfirmasi', 'selesai']),
+                'status' => fake()->randomElement(['pending', 'dikonfirmasi', 'selesai', 'dibatalkan']),
             ]);
 
             $totalBayar = 0;
