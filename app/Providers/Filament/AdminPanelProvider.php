@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Closure;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -14,6 +15,7 @@ use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
@@ -24,6 +26,7 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
+            ->brandName('Admin Niskala Kafe')
             ->id('admin')
             ->path('admin')
             ->login()
@@ -51,6 +54,15 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+            // ->middleware([
+            //     'auth',
+            //     function (Request $request, Closure $next) {
+            //         if (!auth()->user()->hasRole('admin')) {
+            //             abort(403, 'Anda tidak memiliki akses.');
+            //         }
+            //         return $next($request);
+            //     },
+            // ])
             ->authMiddleware([
                 Authenticate::class,
             ]);

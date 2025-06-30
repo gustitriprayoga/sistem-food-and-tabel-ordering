@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('menu_variasis', function (Blueprint $table) {
+        Schema::create('variasi_menus', function (Blueprint $table) {
             $table->id();
-            // Relasi ke tabel menu (induk)
-            $table->foreignId('menu_id')->constrained('menu')->onDelete('cascade');
+            $table->foreignId('menu_id')->constrained('menus')->onDelete('cascade');
             $table->string('nama_variasi');
-            $table->decimal('harga', 10, 2);
-            $table->enum('status_ketersediaan', ['tersedia', 'habis'])->default('tersedia');
+            $table->unsignedBigInteger('harga');
+            $table->boolean('tersedia')->default(true);
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menu_variasis');
+        Schema::dropIfExists('variasi_menus');
     }
 };

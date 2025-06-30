@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detail_pesanans', function (Blueprint $table) {
+        Schema::create('detail_reservasis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pesanan_id')->constrained('pesanan')->onDelete('cascade');
-            // Terhubung ke variasi spesifik yang dipesan
-            $table->foreignId('menu_variasi_id')->constrained('menu_variasi')->onDelete('cascade');
+            $table->foreignId('reservasi_id')->constrained('reservasis')->onDelete('cascade');
+            $table->foreignId('variasi_menu_id')->constrained('variasi_menus');
             $table->integer('jumlah');
-            $table->decimal('harga_saat_pesan', 10, 2);
+            $table->unsignedBigInteger('harga_saat_pesan');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detail_pesanans');
+        Schema::dropIfExists('detail_reservasis');
     }
 };

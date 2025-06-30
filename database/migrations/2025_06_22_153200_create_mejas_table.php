@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('mejas', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_meja')->unique();
+            $table->foreignId('denah_id')->constrained('denahs')->onDelete('cascade');
+            $table->string('nama'); // Contoh: "Meja 01", "Sofa Sudut"
             $table->integer('kapasitas');
-            $table->integer('posisi_x')->nullable();
-            $table->integer('posisi_y')->nullable();
-            $table->enum('status', ['aktif', 'nonaktif', 'perbaikan'])->default('aktif');
+            $table->enum('status', ['tersedia', 'dipesan', 'ditempati', 'tidak_tersedia'])->default('tersedia');
+            $table->integer('posisi_x')->nullable()->comment('Koordinat X pada gambar denah');
+            $table->integer('posisi_y')->nullable()->comment('Koordinat Y pada gambar denah');
             $table->timestamps();
         });
     }

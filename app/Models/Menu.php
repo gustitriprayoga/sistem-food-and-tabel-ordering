@@ -11,8 +11,13 @@ class Menu extends Model
 
     protected $guarded = [];
 
-    public function variasi()
+    public function variasiMenu()
     {
-        return $this->hasMany(MenuVariasi::class);
+        return $this->hasMany(VariasiMenu::class);
+    }
+
+    public function kategori()
+    {
+        return $this->belongsTo(KategoriMenu::class);
     }
 }

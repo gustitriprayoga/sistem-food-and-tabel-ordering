@@ -14,16 +14,29 @@ return new class extends Migration
         Schema::create('reservasis', function (Blueprint $table) {
             $table->id();
             $table->string('kode_reservasi')->unique();
-            // Relasi bisa null jika pelanggan tidak login
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
-            $table->foreignId('meja_id')->constrained('meja')->onDelete('cascade');
-            $table->string('nama_pelanggan');
-            $table->string('telepon_pelanggan');
+            $table->foreignId('user_id')->nullable()->constrained('users');
+            $table->foreignId('meja_id')->nullable()->constrained('mejas');
+
             $table->date('tanggal_reservasi');
-            $table->time('jam_mulai');
-            $table->time('jam_selesai');
-            $table->integer('jumlah_orang');
-            $table->enum('status', ['menunggu_konfirmasi', 'dikonfirmasi', 'selesai', 'dibatalkan'])->default('menunggu_konfirmasi');
+            $table->time('waktu_reservasi');
+            $table->integer('jumlah_orang')->nullable();
+            $table->text('catatan')->nullable();
+
+            // Detail Pembayaran
+            $table->unsignedBigInteger('total_bayar');
+            $table->enum('metode_pembayaran', ['kasir', 'transfer_bank', 'e_wallet']);
+            $table->enum('status_pembayaran', [
+                'pending', // Belum bayar
+                'menunggu_konfirmasi', // Sudah upload bukti, menunggu verifikasi admin
+                'lunas', // Dikonfirmasi lunas oleh admin
+                'dibatalkan' // Pesanan dibatalkan
+            ])->default('pending');
+            $table->string('bukti_pembayaran')->nullable()->comment('Path ke file bukti pembayaran');
+
+            // Detail Status Pesanan
+            $table->enum('tipe_pesanan', ['makan_ditempat', 'bawa_pulang'])->default('makan_ditempat');
+            $table->enum('status', ['pending', 'dikonfirmasi', 'selesai', 'dibatalkan'])->default('pending');
+
             $table->timestamps();
         });
     }

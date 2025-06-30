@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('menus', function (Blueprint $table) {
+        Schema::create('denahs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kategori_id')->constrained('kategori_menus');
-            $table->string('nama');
-            $table->text('deskripsi')->nullable();
-            $table->string('gambar')->nullable();
-            $table->boolean('tersedia')->default(true);
+            $table->string('nama'); // Contoh: "Denah Lantai 1"
+            $table->string('path_gambar');
+            $table->boolean('aktif')->default(true);
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menus');
+        Schema::dropIfExists('denahs');
     }
 };
