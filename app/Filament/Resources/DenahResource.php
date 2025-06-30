@@ -6,6 +6,7 @@ use App\Filament\Resources\DenahResource\Pages;
 use App\Filament\Resources\DenahResource\RelationManagers;
 use App\Models\Denah;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -26,9 +27,12 @@ class DenahResource extends Resource
                 Forms\Components\TextInput::make('nama')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('path_gambar')
+                FileUpload::make('path_gambar')
+                    ->label('Gambar Denah')
+                    ->image()
                     ->required()
-                    ->maxLength(255),
+                    ->maxSize(1024) // Maksimal ukuran file 1MB
+                    ->directory('denah'), // Direktori penyimpanan
                 Forms\Components\Toggle::make('aktif')
                     ->required(),
             ]);
