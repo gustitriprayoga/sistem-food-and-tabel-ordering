@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Frontend\HalamanDepan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+// Jadikan ini sebagai route utama Anda
+Route::get('/', HalamanDepan::class)->name('home');
