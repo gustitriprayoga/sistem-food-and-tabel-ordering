@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 
 <head>
     <meta charset="utf-8">
@@ -19,27 +19,19 @@
         href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap"
         rel="stylesheet">
 
-    <!-- Livewire & Filament Styles -->
     @livewireStyles
     @filamentStyles
     @vite('resources/css/app.css')
 
-    <!-- Custom CSS untuk tema, warna, dan animasi -->
+    <!-- Tema Warna & Style Kustom -->
     <style>
         :root {
-            /* Palet Warna Baru: Dramatis & Hangat */
             --bg-dark: #111111;
-            /* Latar belakang utama (hitam arang) */
             --bg-secondary: #1a1a1a;
-            /* Latar belakang section */
             --text-light: #e8e8e8;
-            /* Warna teks utama (putih gading) */
             --text-muted: #888888;
-            /* Warna teks sekunder */
             --accent-color: #ff8c00;
-            /* Oranye matahari terbenam sebagai aksen utama */
             --accent-hover: #ffA500;
-            /* Warna hover untuk aksen */
             --border-color: #333333;
         }
 
@@ -48,10 +40,8 @@
             background-color: var(--bg-dark);
             color: var(--text-light);
             overflow-x: hidden;
-            /* Mencegah scroll horizontal */
         }
 
-        /* Tipografi Kustom */
         .ff-serif {
             font-family: 'Lora', serif;
         }
@@ -68,7 +58,6 @@
             background-color: var(--bg-secondary);
         }
 
-        /* Komponen Kustom */
         .navbar {
             background-color: rgba(17, 17, 17, 0.7);
             backdrop-filter: blur(12px);
@@ -93,7 +82,6 @@
             padding: 0.8rem 2rem;
             transition: all 0.3s ease;
             border-radius: 50px;
-            /* Rounded pill */
         }
 
         .btn-accent:hover {
@@ -103,9 +91,7 @@
             box-shadow: 0 5px 20px rgba(255, 140, 0, 0.25);
         }
 
-        /* Animasi Reveal On Scroll */
         .reveal {
-            position: relative;
             opacity: 0;
             transform: translateY(50px);
             transition: all 1s ease-out;
@@ -116,7 +102,6 @@
             transform: translateY(0);
         }
 
-        /* Card Kustom */
         .custom-card {
             background-color: var(--bg-secondary);
             border: 1px solid var(--border-color);
@@ -134,29 +119,22 @@
 
 <body class="antialiased">
 
-    {{-- Memanggil Komponen Header --}}
     <x-frontend.header />
 
-    {{-- Di sinilah konten dari setiap halaman akan dimasukkan --}}
     <main>
         {{ $slot }}
     </main>
 
-    {{-- Memanggil Komponen Footer --}}
     <x-frontend.footer />
 
-    <!-- Livewire, Filament, dan Bootstrap JS -->
-    @livewireScripts
     @livewire('notifications')
+    @livewireScripts
     @filamentScripts
     @vite('resources/js/app.js')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    {{-- Script untuk Animasi On Scroll --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const revealElements = document.querySelectorAll('.reveal');
-
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -164,14 +142,12 @@
                     }
                 });
             }, {
-                threshold: 0.1 // Trigger saat 10% elemen terlihat
+                threshold: 0.1
             });
-
-            revealElements.forEach(el => {
-                observer.observe(el);
-            });
+            revealElements.forEach(el => observer.observe(el));
         });
     </script>
+    @stack('scripts')
 </body>
 
 </html>

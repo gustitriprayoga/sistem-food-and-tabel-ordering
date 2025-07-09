@@ -1,6 +1,5 @@
 {{-- File: resources/views/components/frontend/footer.blade.php --}}
-{{-- Desain footer baru menggunakan Bootstrap 5 dan gaya yang lebih menarik --}}
-<footer id="kontak" class="py-5 bg-secondary">
+<footer class="py-5 bg-secondary">
     <div class="container py-4">
         <div class="row g-5">
             {{-- Kolom 1: Tentang Kami --}}
@@ -8,22 +7,21 @@
                 <h3 class="ff-serif fs-4 text-light mb-3">NISKALA KAFE</h3>
                 <p class="text-muted">Tempat di mana setiap cangkir kopi adalah sebuah cerita. Kami menyajikan ketenangan
                     dan cita rasa otentik hanya untuk Anda.</p>
-                <hr class="d-lg-none my-4" style="border-color: var(--border-color);">
             </div>
 
             {{-- Kolom 2: Tautan Cepat --}}
             <div class="col-lg-2 col-md-6 text-center text-lg-start">
                 <h5 class="text-light mb-3">Tautan</h5>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><a href="#keunggulan"
-                            class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">Keunggulan</a>
+                    <li class="mb-2"><a href="#"
+                            class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">Beranda</a>
                     </li>
-                    <li class="mb-2"><a href="#menu"
+                    <li class="mb-2"><a href="#"
                             class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">Menu</a>
                     </li>
-                    <li class="mb-2"><a href="#denah"
-                            class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">Denah
-                            Meja</a></li>
+                    <li class="mb-2"><a href="#"
+                            class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">Reservasi</a>
+                    </li>
                 </ul>
             </div>
 
