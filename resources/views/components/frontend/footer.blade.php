@@ -1,75 +1,25 @@
-{{-- File: resources/views/components/frontend/footer.blade.php --}}
-<footer class="py-5 bg-secondary">
-    <div class="container py-4">
-        <div class="row g-5">
-            {{-- Kolom 1: Tentang Kami --}}
-            <div class="col-lg-4 text-center text-lg-start">
-                <h3 class="ff-serif fs-4 text-light mb-3">NISKALA KAFE</h3>
-                <p class="text-muted">Tempat di mana setiap cangkir kopi adalah sebuah cerita. Kami menyajikan ketenangan
-                    dan cita rasa otentik hanya untuk Anda.</p>
-            </div>
+<footer class="bg-secondary py-5 border-top border-secondary">
+    <div class="container text-center text-muted">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h4 class="ff-serif text-accent mb-3">Niskala Cafe</h4>
+                <p>Jalan Kenangan No. 10, Kota Bahagia | Buka: 10:00 - 22:00 WIB</p>
 
-            {{-- Kolom 2: Tautan Cepat --}}
-            <div class="col-lg-2 col-md-6 text-center text-lg-start">
-                <h5 class="text-light mb-3">Tautan</h5>
-                <ul class="list-unstyled">
-                    <li class="mb-2"><a href="#"
-                            class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">Beranda</a>
-                    </li>
-                    <li class="mb-2"><a href="#"
-                            class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">Menu</a>
-                    </li>
-                    <li class="mb-2"><a href="#"
-                            class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">Reservasi</a>
-                    </li>
-                </ul>
-            </div>
-
-            {{-- Kolom 3: Hubungi Kami --}}
-            <div class="col-lg-3 col-md-6 text-center text-lg-start">
-                <h5 class="text-light mb-3">Hubungi Kami</h5>
-                <ul class="list-unstyled text-muted">
-                    <li class="mb-2">Jl. Kopi Senja No. 123</li>
-                    <li class="mb-2">Bangkinang, Riau</li>
-                    <li class="mb-2">niskala@kafe.com</li>
-                </ul>
-            </div>
-
-            {{-- Kolom 4: Sosial Media --}}
-            <div class="col-lg-3 text-center text-lg-start">
-                <h5 class="text-light mb-3">Ikuti Kami</h5>
-                <p class="text-muted small">Dapatkan info terbaru dan promo menarik.</p>
-                <div class="d-flex justify-content-center justify-content-lg-start gap-3 mt-3">
-                    <style>
-                        .social-icon {
-                            display: inline-flex;
-                            width: 40px;
-                            height: 40px;
-                            align-items: center;
-                            justify-content: center;
-                            border-radius: 50%;
-                            background-color: var(--border-color);
-                            color: var(--text-muted);
-                            transition: all 0.3s ease;
-                        }
-
-                        .social-icon:hover {
-                            background-color: var(--accent-color);
-                            color: var(--bg-dark);
-                            transform: translateY(-3px);
-                        }
-                    </style>
-                    {{-- Ganti '#' dengan link sosial media Anda --}}
-                    <a href="#" class="social-icon">@svg('heroicon-o-globe-alt', 'icon', ['style' => 'width: 20px; height: 20px;'])</a>
-                    <a href="#" class="social-icon">@svg('heroicon-o-chat-bubble-left-right', 'icon', ['style' => 'width: 20px; height: 20px;'])</a>
-                    <a href="#" class="social-icon">@svg('heroicon-o-camera', 'icon', ['style' => 'width: 20px; height: 20px;'])</a>
+                <div class="d-flex justify-content-center gap-4 mt-4 text-light">
+                    <a href="#" class="text-accent hover-opacity-75"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                            <path
+                                d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625H4.671V8.05h-2.001V6.05h2.001V4.577c0-1.993 1.189-3.045 3.018-3.045.884 0 1.81.16 1.81.16v1.98h-1.017c-.993 0-1.285.623-1.285 1.29V8.05h2.001l-.32 1.98h-.68c2.81 0 5.12-2.308 5.12-5.148z" />
+                        </svg></a>
+                    <a href="#" class="text-accent hover-opacity-75"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" fill="currentColor" class="bi bi-instagram"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M8 0C3.58 0 0 3.58 0 8c0 4.42 3.58 8 8 8s8-3.58 8-8c0-4.42-3.58-8-8-8zm5 4.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM8 12.5A4.5 4.5 0 1 1 8 3.5a4.5 4.5 0 0 1 0 9z" />
+                        </svg></a>
                 </div>
             </div>
         </div>
-
-        {{-- Copyright --}}
-        <div class="text-center text-muted border-top pt-4 mt-5" style="border-color: var(--border-color) !important;">
-            <p class="small">&copy; {{ date('Y') }} Niskala Kafe. Dibuat dengan Penuh Cinta.</p>
-        </div>
+        <p class="mt-5 mb-0 small">&copy; {{ date('Y') }} Niskala Cafe. Dibuat dengan Livewire & Laravel.</p>
     </div>
 </footer>

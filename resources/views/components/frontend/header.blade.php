@@ -1,30 +1,35 @@
-{{-- File: resources/views/components/frontend/header.blade.php --}}
-<header class="sticky-top">
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand ff-serif fw-bold fs-4 text-accent" href="{{ route('home') }}" wire:navigate>NISKALA</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3">
+    <div class="container">
+        <a class="navbar-brand ff-serif fw-bold" href="{{ route('homepage') }}">
+            <span class="text-accent">Niskala</span> Cafe
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{{ route('homepage') }}">Beranda</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{{ route('menu.index') }}">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{{ route('reservasi.index') }}">Reservasi</a>
+                </li>
+                @auth
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home') }}" wire:navigate>Beranda</a>
+                        <a class="btn btn-accent btn-sm ms-lg-3" href="/dashboard"
+                            style="border-radius: 50px;">Dashboard</a>
                     </li>
+                @endauth
+                @guest
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Tentang Kami</a>
+                        <a class="btn btn-accent btn-sm ms-lg-3" href="/login" style="border-radius: 50px;">Masuk</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Kontak</a>
-                    </li>
-                </ul>
-                <div class="d-flex align-items-center">
-                    <a href="#" class="btn btn-accent">
-                        Pesan Sekarang
-                    </a>
-                </div>
-            </div>
+                @endguest
+            </ul>
         </div>
-    </nav>
-</header>
+    </div>
+</nav>
