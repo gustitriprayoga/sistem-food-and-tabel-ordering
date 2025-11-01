@@ -19,16 +19,14 @@ class DenahMejaSelector extends Component
         $this->selectedMejaId = $selectedMejaId;
     }
 
-    // Kirim event ke komponen Induk
     public function selectMeja($mejaId)
     {
         $meja = Meja::find($mejaId);
         if ($meja && $meja->status === 'tersedia') {
-            // Toggle selection
             $newMejaId = ($this->selectedMejaId === $mejaId) ? null : $mejaId;
             $this->selectedMejaId = $newMejaId;
 
-            // Kirim event ke komponen induk
+            // Kirim event ke komponen induk (MenuPage)
             $this->dispatch('mejaDipilih', mejaId: $newMejaId);
         }
     }

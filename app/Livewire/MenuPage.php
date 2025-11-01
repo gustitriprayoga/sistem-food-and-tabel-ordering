@@ -7,11 +7,11 @@ use App\Models\Denah;
 use App\Models\KategoriMenu;
 use App\Models\VariasiMenu;
 
-class PemesananMenuComponent extends Component
+class MenuPage extends Component
 {
     public array $keranjang = [];
     public $selectedDenahId;
-    public $selectedMejaId = null; // Meja yang dipilih di DenahMejaSelector
+    public $selectedMejaId = null;
     public bool $showReservasiNotification = true;
 
     protected $listeners = ['mejaDipilih' => 'setSelectedMeja'];
@@ -22,7 +22,6 @@ class PemesananMenuComponent extends Component
         $this->selectedDenahId = $firstDenah->id ?? null;
     }
 
-    // Dipanggil dari DenahMejaSelector
     public function setSelectedMeja($mejaId)
     {
         $this->selectedMejaId = $mejaId;
@@ -39,7 +38,6 @@ class PemesananMenuComponent extends Component
         $namaLengkap = $variasi->menu->nama . ' (' . $variasi->nama_variasi . ')';
         $harga = $variasi->harga;
 
-        // Inisialisasi item jika belum ada
         if (!isset($this->keranjang[$variasiMenuId])) {
             $this->keranjang[$variasiMenuId] = [
                 'nama' => $namaLengkap,
@@ -76,7 +74,6 @@ class PemesananMenuComponent extends Component
             return;
         }
 
-        // Simpan data keranjang dan meja (jika ada) ke session
         session()->put('order_data', [
             'type' => 'menu',
             'cart' => $this->keranjang,
@@ -88,11 +85,11 @@ class PemesananMenuComponent extends Component
 
     public function render()
     {
-        $kategoriMenus = KategoriMenu::with(['menus.variasiMenus' => function ($query) {
+        $kategoriMenus = KategoriMenu::with(['menus.variasiMenus' => function($query) {
             $query->where('tersedia', true);
         }])->get();
 
-        return view('livewire.pemesanan-menu-component', [
+        return view('livewire.menu-page', [
             'kategoriMenus' => $kategoriMenus,
             'denahs' => Denah::where('aktif', true)->get(),
         ])->layout('components.layouts.app', ['title' => 'Pesan Menu']);

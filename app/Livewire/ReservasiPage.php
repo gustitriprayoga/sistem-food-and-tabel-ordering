@@ -4,28 +4,24 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Meja;
-use App\Models\Reservasi;
 
-class ReservasiComponent extends Component
+class ReservasiPage extends Component
 {
-    // ... (Properti yang sama seperti sebelumnya)
     public $step = 1;
     public $tanggal_reservasi;
     public $waktu_reservasi;
     public $jumlah_orang;
     public $meja_id = null;
     public $catatan;
-    public $total_bayar = 50000; // Contoh DP reservasi
+    public $total_bayar = 50000;
     public $metode_pembayaran;
-    public $reservasiBerhasil = false;
-    public $kodeReservasi;
     public $mejaTersedia = [];
 
     protected $rules = [
         'tanggal_reservasi' => 'required|date|after_or_equal:today',
         'waktu_reservasi' => 'required|date_format:H:i',
         'jumlah_orang' => 'required|integer|min:1',
-        'meja_id' => 'nullable|exists:mejas,id', // Diisi di step 2
+        'meja_id' => 'nullable|exists:mejas,id',
         'metode_pembayaran' => 'required|in:kasir,transfer_bank,e_wallet',
     ];
 
@@ -34,10 +30,9 @@ class ReservasiComponent extends Component
         if ($this->step === 1) {
             $this->validate(['tanggal_reservasi', 'waktu_reservasi', 'jumlah_orang']);
 
-            // Logika mencari meja yang cukup kapasitas dan status tersedia (disini masih sederhana)
             $this->mejaTersedia = Meja::where('kapasitas', '>=', $this->jumlah_orang)
-                ->where('status', 'tersedia')
-                ->get();
+                                    ->where('status', 'tersedia')
+                                    ->get();
 
             if ($this->mejaTersedia->isEmpty()) {
                 session()->flash('error', 'Maaf, tidak ada meja yang tersedia untuk kapasitas tersebut.');
@@ -45,7 +40,8 @@ class ReservasiComponent extends Component
             }
 
             $this->step = 2;
-        } elseif ($this->step === 2) {
+        }
+        elseif ($this->step === 2) {
             $this->validate(['meja_id' => 'required|exists:mejas,id']);
             $this->step = 3;
         }
@@ -58,10 +54,8 @@ class ReservasiComponent extends Component
 
     public function checkoutReservasi()
     {
-        // Validasi Akhir di Step 3
         $this->validate();
 
-        // Simpan data reservasi sementara ke session untuk halaman pembayaran
         session()->put('order_data', [
             'type' => 'reservasi',
             'meja_id' => $this->meja_id,
@@ -78,7 +72,7 @@ class ReservasiComponent extends Component
 
     public function render()
     {
-        return view('livewire.reservasi-component')
+        return view('livewire.reservasi-page')
             ->layout('components.layouts.app', ['title' => 'Reservasi Meja']);
     }
 }

@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class KategoriMenu extends Model
 {
     use HasFactory;
+
+    protected $table = 'kategori_menus';
+
+    public function menus()
+    {
+        return $this->hasMany(Menu::class, 'kategori_menu_id');
+    }
 }

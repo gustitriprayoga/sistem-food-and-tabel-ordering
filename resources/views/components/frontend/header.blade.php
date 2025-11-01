@@ -19,15 +19,14 @@
                     <a class="nav-link text-light" href="{{ route('reservasi.index') }}">Reservasi</a>
                 </li>
                 @auth
-                    <li class="nav-item">
-                        <a class="btn btn-accent btn-sm ms-lg-3" href="/dashboard"
-                            style="border-radius: 50px;">Dashboard</a>
-                    </li>
+                <li class="nav-item">
+                    <a class="btn btn-accent btn-sm ms-lg-3" href="/dashboard" style="border-radius: 50px;">Dashboard</a>
+                </li>
                 @endauth
                 @guest
-                    <li class="nav-item">
-                        <a class="btn btn-accent btn-sm ms-lg-3" href="/login" style="border-radius: 50px;">Masuk</a>
-                    </li>
+                <li class="nav-item">
+                    <a class="btn btn-accent btn-sm ms-lg-3" href="/login" style="border-radius: 50px;">Masuk</a>
+                </li>
                 @endguest
             </ul>
         </div>

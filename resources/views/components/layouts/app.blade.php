@@ -45,11 +45,49 @@
             color: var(--accent-color) !important;
         }
 
-        /* [CSS kustom lainnya dari file Anda] */
-        .bg-accent { background-color: var(--accent-color) !important; }
-        .bg-secondary { background-color: var(--bg-secondary); }
-        .navbar { /* ... style navbar Anda ... */ }
-        /* ... tambahkan semua CSS kustom lainnya di sini ... */
+        .bg-accent {
+            background-color: var(--accent-color) !important;
+        }
+
+        .bg-secondary {
+            background-color: var(--bg-secondary);
+        }
+
+        .navbar {
+            background-color: rgba(17, 17, 17, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .btn-accent {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #111;
+            font-weight: 600;
+            padding: 0.8rem 2rem;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+        }
+
+        .btn-accent:hover {
+            background-color: var(--accent-hover);
+            border-color: var(--accent-hover);
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255, 140, 0, 0.25);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .custom-card {
             background-color: var(--bg-secondary);
             border: 1px solid var(--border-color);
@@ -58,15 +96,17 @@
         }
 
         .custom-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             border-color: var(--accent-color);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
+        .btn-close-white {
+            filter: invert(1);
+        }
     </style>
 
     @stack('styles')
-
 </head>
 
 <body class="antialiased">

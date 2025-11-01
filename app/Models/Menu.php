@@ -25,4 +25,9 @@ class Menu extends Model
     {
         return $this->hasMany(DetailReservasi::class);
     }
+
+    public function variasiMenus()
+    {
+        return $this->hasMany(VariasiMenu::class, 'menu_id');
+    }
 }

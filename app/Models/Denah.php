@@ -18,5 +18,9 @@ class Denah extends Model
         return $this->hasMany(Meja::class, 'denah_id', 'id');
     }
 
-    
+    public function mejas()
+    {
+        return $this->hasMany(Meja::class, 'denah_id', 'id');
+    }
+
 }

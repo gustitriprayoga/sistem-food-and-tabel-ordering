@@ -4,17 +4,16 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Reservasi;
+use App\Models\Meja; // Diperlukan untuk update status meja
 use Illuminate\Support\Str;
 
-class PembayaranComponent extends Component
+class PembayaranPage extends Component
 {
-    // ... (Properti yang sama seperti sebelumnya)
     public $orderData;
     public $tipePesanan;
     public $totalBayar;
     public $metode_pembayaran;
     public $catatan;
-    public $uploadingBukti = false;
 
     protected $rules = [
         'metode_pembayaran' => 'required|in:kasir,transfer_bank,e_wallet',
@@ -36,7 +35,6 @@ class PembayaranComponent extends Component
             $this->totalBayar = array_sum(array_map(fn($item) => $item['harga'] * $item['jumlah'], $this->orderData['cart']));
         } elseif ($this->tipePesanan == 'reservasi') {
             $this->totalBayar = $this->orderData['dp_amount'];
-            // Isi data reservasi yang sudah dipilih sebelumnya
             $this->metode_pembayaran = $this->orderData['metode_pembayaran'] ?? null;
             $this->catatan = $this->orderData['catatan'] ?? null;
         }
@@ -47,10 +45,10 @@ class PembayaranComponent extends Component
         $this->validate();
 
         $kode = 'NKL-' . strtoupper(Str::random(6));
-        $statusPembayaran = $this->metode_pembayaran == 'kasir' ? 'pending' : 'menunggu_konfirmasi';
+        $statusPembayaran = ($this->metode_pembayaran == 'kasir') ? 'pending' : 'menunggu_konfirmasi';
 
         if ($this->tipePesanan == 'reservasi') {
-            // Logika Penyimpanan Reservasi dari data sesi
+            // Penyimpanan Reservasi (DP)
             $reservasi = Reservasi::create([
                 'kode_reservasi' => $kode,
                 'meja_id' => $this->orderData['meja_id'],
@@ -64,8 +62,16 @@ class PembayaranComponent extends Component
                 'tipe_pesanan' => 'makan_ditempat',
                 'status' => 'pending',
             ]);
+
+            // Update status meja menjadi 'dipesan'
+            $meja = Meja::find($this->orderData['meja_id']);
+            if ($meja) {
+                $meja->status = 'dipesan';
+                $meja->save();
+            }
+
         } elseif ($this->tipePesanan == 'menu') {
-            // Logika Penyimpanan Pemesanan Menu dari data sesi
+            // Penyimpanan Pemesanan Menu
             $reservasi = Reservasi::create([
                 'kode_reservasi' => $kode,
                 'meja_id' => $this->orderData['meja_id'] ?? null,
@@ -77,7 +83,7 @@ class PembayaranComponent extends Component
                 'metode_pembayaran' => $this->metode_pembayaran,
                 'status_pembayaran' => $statusPembayaran,
                 'tipe_pesanan' => $this->orderData['meja_id'] ? 'makan_ditempat' : 'bawa_pulang',
-                'status' => $this->metode_pembayaran == 'kasir' ? 'pending' : 'dikonfirmasi',
+                'status' => 'dikonfirmasi', // Asumsi pesanan menu langsung diproses
             ]);
 
             // Simpan detail menu
@@ -90,7 +96,6 @@ class PembayaranComponent extends Component
             }
         }
 
-        // Bersihkan session
         session()->forget('order_data');
 
         return redirect()->route('pembayaran.sukses', ['kode' => $kode]);
@@ -98,6 +103,7 @@ class PembayaranComponent extends Component
 
     public function render()
     {
-        return view('livewire.pembayaran-component')->layout('components.layouts.app', ['title' => 'Pembayaran']);
+        return view('livewire.pembayaran-page')
+            ->layout('components.layouts.app', ['title' => 'Pembayaran']);
     }
 }
