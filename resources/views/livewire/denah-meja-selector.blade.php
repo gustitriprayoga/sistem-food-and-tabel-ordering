@@ -1,7 +1,15 @@
 <div>
     @if ($denah)
-        <div class="relative w-100 border border-secondary rounded-lg overflow-hidden bg-dark"
-            style="background-image: url('{{ asset('storage/' . $denah->path_gambar) }}'); background-size: cover; background-position: center; padding-bottom: 56.25%;">
+        {{-- Kontainer Denah: Harus memiliki position: relative agar meja (absolute) diposisikan di dalamnya. --}}
+        {{-- Min-height ditambahkan untuk memastikan area terlihat jelas, meskipun gambar gagal dimuat. --}}
+        <div class="position-relative w-100 border border-secondary rounded-lg overflow-hidden bg-dark"
+            style="background-image: url('{{ asset('storage/' . $denah->path_gambar) }}');
+                    background-size: cover;
+                    background-position: center;
+                    padding-bottom: 56.25%;
+                    min-height: 400px;
+                    box-sizing: content-box;">
+
 
             @foreach ($mejas as $meja)
                 @php
@@ -13,14 +21,16 @@
                         'tidak_tersedia' => 'bg-dark-subtle cursor-not-allowed',
                         default => 'bg-secondary',
                     };
-                    $borderClass = $selectedMejaId == $meja->id ? 'ring-4 ring-offset-2 ring-accent' : '';
-                    $sizeClass = 'width: 40px; height: 40px;';
+                    $borderClass = $selectedMejaId == $meja->id ? 'border border-3 border-accent' : 'border-0';
+                    $sizeClass = 'width: 45px; height: 45px; margin-left: -22.5px; margin-top: -22.5px;';
+                    // margin negatif untuk memusatkan lingkaran di posisi (x, y)
                 @endphp
 
+                {{-- Meja menggunakan position-absolute dan koordinat persen (0-100) --}}
                 <div wire:click="{{ $isTersedia ? 'selectMeja(' . $meja->id . ')' : '' }}"
                     style="left: {{ $meja->posisi_x }}%; top: {{ $meja->posisi_y }}%; {{ $sizeClass }}"
                     title="{{ $meja->nama }} (Kapasitas: {{ $meja->kapasitas }} | Status: {{ $meja->status }})"
-                    class="position-absolute {{ $colorClass }} {{ $borderClass }} rounded-circle d-flex align-items-center justify-content-center text-light small fw-bold shadow">
+                    class="position-absolute {{ $colorClass }} {{ $borderClass }} rounded-circle d-flex align-items-center justify-content-center text-light small fw-bold shadow-lg text-center">
                     {{ substr($meja->nama, 0, 3) }}
                 </div>
             @endforeach
@@ -36,6 +46,6 @@
                     style="width: 10px; height: 10px; background-color: #dc3545;"></span> Ditempati</span>
         </div>
     @else
-        <p class="text-danger">Denah tidak ditemukan.</p>
+        <p class="text-danger">Denah tidak ditemukan atau tidak aktif.</p>
     @endif
 </div>

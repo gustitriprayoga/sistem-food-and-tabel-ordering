@@ -14,6 +14,7 @@ class MenuPage extends Component
     public $selectedMejaId = null;
     public bool $showReservasiNotification = true;
 
+
     protected $listeners = ['mejaDipilih' => 'setSelectedMeja'];
 
     public function mount()
@@ -24,6 +25,7 @@ class MenuPage extends Component
 
     public function setSelectedMeja($mejaId)
     {
+        // Fungsi ini akan menerima ID meja dari komponen anak
         $this->selectedMejaId = $mejaId;
     }
 
@@ -85,7 +87,7 @@ class MenuPage extends Component
 
     public function render()
     {
-        $kategoriMenus = KategoriMenu::with(['menus.variasiMenus' => function($query) {
+        $kategoriMenus = KategoriMenu::with(['menus.variasiMenus' => function ($query) {
             $query->where('tersedia', true);
         }])->get();
 

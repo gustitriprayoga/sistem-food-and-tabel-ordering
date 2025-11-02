@@ -5,6 +5,7 @@ use App\Livewire\HomePage;
 use App\Livewire\MenuPage;
 use App\Livewire\ReservasiPage;
 use App\Livewire\PembayaranPage;
+use App\Livewire\BookingFlow;
 
 // --- Rute Halaman Utama ---
 Route::get('/', HomePage::class)->name('homepage');
@@ -16,3 +17,5 @@ Route::get('/pembayaran', PembayaranPage::class)->name('pembayaran.index');
 Route::get('/pembayaran/sukses/{kode}', function ($kode) {
     return view('pembayaran-sukses', compact('kode'))->layout('components.layouts.app');
 })->name('pembayaran.sukses');
+
+Route::get('/booking', BookingFlow::class)->name('booking.start');
