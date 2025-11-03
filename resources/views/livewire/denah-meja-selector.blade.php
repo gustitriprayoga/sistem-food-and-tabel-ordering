@@ -1,14 +1,11 @@
 <div>
     @if ($denah)
-        {{-- Kontainer Denah: Harus memiliki position: relative agar meja (absolute) diposisikan di dalamnya. --}}
-        {{-- Min-height ditambahkan untuk memastikan area terlihat jelas, meskipun gambar gagal dimuat. --}}
         <div class="position-relative w-100 border border-secondary rounded-lg overflow-hidden bg-dark"
             style="background-image: url('{{ asset('storage/' . $denah->path_gambar) }}');
                     background-size: cover;
                     background-position: center;
                     padding-bottom: 56.25%;
-                    min-height: 400px;
-                    box-sizing: content-box;">
+                    min-height: 400px;">
 
 
             @foreach ($mejas as $meja)
@@ -23,10 +20,8 @@
                     };
                     $borderClass = $selectedMejaId == $meja->id ? 'border border-3 border-accent' : 'border-0';
                     $sizeClass = 'width: 45px; height: 45px; margin-left: -22.5px; margin-top: -22.5px;';
-                    // margin negatif untuk memusatkan lingkaran di posisi (x, y)
                 @endphp
 
-                {{-- Meja menggunakan position-absolute dan koordinat persen (0-100) --}}
                 <div wire:click="{{ $isTersedia ? 'selectMeja(' . $meja->id . ')' : '' }}"
                     style="left: {{ $meja->posisi_x }}%; top: {{ $meja->posisi_y }}%; {{ $sizeClass }}"
                     title="{{ $meja->nama }} (Kapasitas: {{ $meja->kapasitas }} | Status: {{ $meja->status }})"
@@ -42,8 +37,6 @@
                     style="width: 10px; height: 10px; background-color: #198754;"></span> Tersedia</span>
             <span class="d-flex align-items-center"><span class="rounded-circle me-2"
                     style="width: 10px; height: 10px; background-color: #ffc107;"></span> Dipesan</span>
-            <span class="d-flex align-items-center"><span class="rounded-circle me-2"
-                    style="width: 10px; height: 10px; background-color: #dc3545;"></span> Ditempati</span>
         </div>
     @else
         <p class="text-danger">Denah tidak ditemukan atau tidak aktif.</p>

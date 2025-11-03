@@ -35,7 +35,13 @@ class BookingFlow extends Component
 
     protected $listeners = ['mejaDipilih' => 'setSelectedMeja'];
 
-    // --- VALIDATION RULES ---
+    // --- KOREKSI INTI 1: WAJIB ADA untuk $this->validate() ---
+    protected function rules()
+    {
+        return $this->getValidationRules();
+    }
+
+    // VALIDATION RULES DINAMIS
     protected function getValidationRules()
     {
         return match ($this->step) {
@@ -44,8 +50,12 @@ class BookingFlow extends Component
                 'waktu_reservasi' => 'required|date_format:H:i',
                 'jumlah_orang' => 'required|integer|min:1',
             ],
-            3 => [
-                // Kita akan mengecek keberadaan selectedMejaId secara manual di nextStep jika hanyaPesanMeja=true
+            // Step 2 tidak memerlukan validasi karena hanya memilih menu (optional)
+            // Step 3 (Pilih Meja) divalidasi manual di nextStep()
+            4 => [
+                // Validasi ini memastikan bahwa jika ada meja yang dipilih, ID-nya valid.
+                // Jika selectedMejaId = null, tidak masalah (kecuali dicheck manual)
+                'selectedMejaId' => 'nullable|exists:mejas,id',
             ],
             5 => [
                 'metode_pembayaran' => 'required|in:kasir,transfer_bank,e_wallet',
@@ -68,9 +78,11 @@ class BookingFlow extends Component
 
     private function loadMenuData()
     {
-        $this->kategoriMenus = KategoriMenu::with(['menus.variasiMenus' => function ($query) {
-            $query->where('tersedia', true);
-        }])->get();
+        $this->kategoriMenus = KategoriMenu::with([
+            'menus.variasiMenus' => function ($query) {
+                $query->where('tersedia', true);
+            }
+        ])->get();
     }
 
     public function setSelectedMeja($mejaId)
@@ -78,7 +90,7 @@ class BookingFlow extends Component
         $this->selectedMejaId = $mejaId;
     }
 
-    // --- LOGIKA CART LENGKAP ---
+    // --- LOGIKA CART DAN COMPUTED PROPERTIES (Lengkap & Aman) ---
     public function updateCart($variasiMenuId, $action = 'add')
     {
         $variasi = VariasiMenu::with('menu')->find($variasiMenuId);
@@ -90,7 +102,6 @@ class BookingFlow extends Component
         $namaLengkap = $variasi->menu->nama . ' (' . $variasi->nama_variasi . ')';
         $harga = $variasi->harga;
 
-        // Inisialisasi item jika belum ada
         if (!isset($this->keranjang[$variasiMenuId])) {
             $this->keranjang[$variasiMenuId] = [
                 'nama' => $namaLengkap,
@@ -110,17 +121,14 @@ class BookingFlow extends Component
         }
     }
 
-    // --- COMPUTED PROPERTIES LENGKAP & KOREKSI NULL ARRAY ---
     public function getTotalMenuProperty()
     {
-        // KOREKSI: Menggunakan operator ?? untuk mencegah error jika $keranjang null
         $keranjangData = $this->keranjang ?? [];
         return array_sum(array_map(fn($item) => $item['harga'] * $item['jumlah'], $keranjangData));
     }
 
     public function getTotalDPProperty()
     {
-        // Asumsi DP tetap 50k
         return 50000;
     }
 
@@ -129,26 +137,30 @@ class BookingFlow extends Component
         return $this->getTotalMenuProperty() + $this->getTotalDPProperty();
     }
 
-    // --- FLOW MANAGEMENT ---
+    // --- KOREKSI INTI 2: nextStep() yang diperbaiki ---
     public function nextStep()
     {
-        try {
-            // Lakukan validasi sesuai langkah saat ini
-            $this->validate($this->getValidationRules());
-        } catch (ValidationException $e) {
-            session()->flash('error', 'Terdapat kesalahan input: ' . $e->getMessage());
-            return;
+        // Panggil validasi hanya untuk step yang memerlukannya
+        if ($this->step === 1 || $this->step === 4 || $this->step === 5) {
+            try {
+                $this->validate();
+            } catch (ValidationException $e) {
+                session()->flash('error', 'Terdapat kesalahan input: ' . $e->getMessage());
+                return;
+            }
         }
 
+        // --- LOGIKA FLOW STEP ---
 
         if ($this->step === 1) {
+            // Setelah validasi Step 1 berhasil
             $this->step = 2;
         } elseif ($this->step === 2) {
-            // Logika: Jika tidak pesan menu, aktifkan flag hanyaPesanMeja
+            // Setelah memilih menu (opsional)
             $this->hanyaPesanMeja = empty($this->keranjang);
             $this->step = 3;
         } elseif ($this->step === 3) {
-            // Validasi manual untuk Step 3 (Meja)
+            // Pengecekan wajib pilih meja (manual check)
             if (!empty($this->keranjang) || $this->hanyaPesanMeja) {
                 if (is_null($this->selectedMejaId)) {
                     session()->flash('error', 'Anda wajib memilih meja untuk melanjutkan.');
@@ -157,27 +169,24 @@ class BookingFlow extends Component
             }
             $this->step = 4;
         } elseif ($this->step === 4) {
-            // Cek apakah ada yang dipesan (menu atau meja) sebelum lanjut
-            if (empty($this->keranjang) && is_null($this->selectedMejaId)) {
-                session()->flash('error', 'Anda harus memilih meja DAN/ATAU memesan menu.');
-                return;
-            }
+            // Setelah validasi Step 4 berhasil (jika ada)
             $this->step = 5;
         } elseif ($this->step === 5) {
+            // Setelah validasi Step 5 berhasil
             $this->saveOrder();
             $this->step = 6;
         }
 
-        session()->forget('error'); // Bersihkan pesan error jika berhasil next step
+        session()->forget('error');
     }
 
     public function prevStep()
     {
         $this->step = max(1, $this->step - 1);
-        session()->forget('error'); // Bersihkan pesan error saat kembali
+        session()->forget('error');
     }
 
-    // --- LOGIKA SAVE ORDER LENGKAP ---
+    // --- LOGIKA SAVE ORDER ---
     public function saveOrder()
     {
         $this->kodeReservasi = 'NKL-' . strtoupper(Str::random(6));
@@ -185,7 +194,6 @@ class BookingFlow extends Component
         $tipePesanan = empty($this->keranjang) ? 'makan_ditempat' : 'pre_order';
         $statusPembayaran = ($this->metode_pembayaran == 'kasir') ? 'pending' : 'menunggu_konfirmasi';
 
-        // 2. SIMPAN RESERVASI UTAMA
         $reservasi = Reservasi::create([
             'kode_reservasi' => $this->kodeReservasi,
             'meja_id' => $this->selectedMejaId,
@@ -200,10 +208,8 @@ class BookingFlow extends Component
             'status' => 'pending',
         ]);
 
-        // 3. SIMPAN DETAIL MENU (JIKA ADA)
         if (!empty($this->keranjang)) {
             foreach ($this->keranjang as $variasi_id => $item) {
-                // Pastikan Anda menggunakan Model DetailReservasi yang sesuai
                 DetailReservasi::create([
                     'reservasi_id' => $reservasi->id,
                     'variasi_menu_id' => $variasi_id,
@@ -213,11 +219,9 @@ class BookingFlow extends Component
             }
         }
 
-        // 4. UPDATE STATUS MEJA (Jika Meja dipilih)
         if ($this->selectedMejaId) {
             $meja = Meja::find($this->selectedMejaId);
             if ($meja) {
-                // Meja diubah statusnya menjadi 'dipesan' setelah konfirmasi/pembayaran
                 $meja->status = 'dipesan';
                 $meja->save();
             }

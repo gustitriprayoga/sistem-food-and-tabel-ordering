@@ -9,39 +9,44 @@ use App\Models\Meja;
 class DenahMejaSelector extends Component
 {
     public $denahId;
-    // Properti ini di-bind (terhubung) dengan properti selectedMejaId di MenuPage
     public $selectedMejaId = null;
+    public $kapasitasMinimal;
 
-    // Menerima event dari parent atau dari inisialisasi mount
     protected $listeners = ['mejaDipilih' => 'setSelectedMeja'];
 
-    public function mount($denahId, $selectedMejaId)
+    public function mount($denahId, $selectedMejaId, $kapasitasMinimal = 1)
     {
         $this->denahId = $denahId;
         $this->selectedMejaId = $selectedMejaId;
+        $this->kapasitasMinimal = $kapasitasMinimal;
     }
 
-    // Fungsi yang dipanggil saat user mengklik meja di view
     public function selectMeja($mejaId)
     {
         $meja = Meja::find($mejaId);
 
-        // Hanya izinkan pemilihan jika statusnya 'tersedia'
-        if ($meja && $meja->status === 'tersedia') {
-            // Toggle selection (pilih/batalkan pilihan)
+        if ($meja && $meja->status === 'tersedia' && $meja->kapasitas >= $this->kapasitasMinimal) {
             $newMejaId = ($this->selectedMejaId === (int) $mejaId) ? null : (int) $mejaId;
             $this->selectedMejaId = $newMejaId;
 
-            // Kirim event ke komponen induk (MenuPage) untuk update state keranjang/pesanan
-            $this->dispatch('mejaDipilih', mejaId: $newMejaId)->to(MenuPage::class);
+            // Kirim event ke komponen induk (BookingFlow)
+            $this->dispatch('mejaDipilih', mejaId: $newMejaId)->to(BookingFlow::class);
+        } else {
+            session()->flash('error', 'Meja tidak tersedia atau kapasitas tidak mencukupi.');
         }
     }
 
     public function render()
     {
-        // PENTING: Gunakan with('mejas') untuk memuat meja yang terkait
-        $denah = Denah::with('mejas')->find($this->denahId);
-        $mejas = $denah->mejas ?? collect();
+        $denah = Denah::find($this->denahId);
+        $mejas = collect();
+
+        if ($denah) {
+            $mejas = $denah->mejas()
+                ->where('kapasitas', '>=', $this->kapasitasMinimal)
+                ->whereIn('status', ['tersedia', 'dipesan'])
+                ->get();
+        }
 
         return view('livewire.denah-meja-selector', [
             'denah' => $denah,

@@ -1,34 +1,37 @@
 <div class="row g-4">
     <div class="col-lg-12">
         <h3 class="text-light mb-4 ff-serif text-accent">Langkah 4: Ringkasan Pesanan</h3>
-        <p class="text-muted mb-4">Pastikan semua detail di bawah ini sudah benar sebelum melanjutkan ke pembayaran.</p>
+        <p class="text-muted mb-4">Pastikan semua detail di bawah ini sudah benar sebelum melanjutkan.</p>
 
         <div class="custom-card p-4 mb-4">
             <h4 class="text-light border-bottom border-secondary pb-2 mb-3">Informasi Reservasi</h4>
             <div class="row">
-                <div class="col-md-6 text-light mb-2">Tanggal: <span class="fw-bold text-accent">{{ $tanggal_reservasi }}</span></div>
-                <div class="col-md-6 text-light mb-2">Waktu: <span class="fw-bold text-accent">{{ $waktu_reservasi }}</span></div>
-                <div class="col-md-6 text-light mb-2">Jumlah Orang: <span class="fw-bold">{{ $jumlah_orang }}</span></div>
-                <div class="col-md-6 text-light mb-2">Meja Terpilih: <span class="fw-bold text-accent">{{ $selectedMejaId ? \App\Models\Meja::find($selectedMejaId)->nama : 'BELUM DIPILIH / TAKEAWAY' }}</span></div>
+                <div class="col-md-6 text-light mb-2">Tanggal: <span
+                        class="fw-bold text-accent">{{ $tanggal_reservasi }}</span></div>
+                <div class="col-md-6 text-light mb-2">Waktu: <span
+                        class="fw-bold text-accent">{{ $waktu_reservasi }}</span></div>
+                <div class="col-md-6 text-light mb-2">Jumlah Orang: <span class="fw-bold">{{ $jumlah_orang }}</span>
+                </div>
+                <div class="col-md-6 text-light mb-2">Meja Terpilih: <span
+                        class="fw-bold text-accent">{{ $selectedMejaId ? \App\Models\Meja::find($selectedMejaId)->nama ?? 'N/A' : 'Hanya Takeaway' }}</span>
+                </div>
             </div>
-
-            @if (!$selectedMejaId && (empty($keranjang) || !$hanyaPesanMeja))
-                <p class="text-danger mt-3 fw-bold">⚠️ Anda harus kembali ke Langkah 3 untuk memilih meja.</p>
-            @endif
         </div>
 
         <div class="custom-card p-4 mb-4">
             <h4 class="text-light border-bottom border-secondary pb-2 mb-3">Item Menu (Pre-Order)</h4>
 
-            @if (empty($keranjang))
+            @if (empty($keranjang ?? []))
                 <p class="text-warning">Tidak ada menu yang dipesan. Hanya reservasi tempat.</p>
             @else
                 <ul class="list-unstyled">
                     @foreach ($keranjang as $id => $item)
-                        <li class="d-flex justify-content-between text-light py-1 border-bottom border-secondary border-opacity-50 small">
+                        <li
+                            class="d-flex justify-content-between text-light py-1 border-bottom border-secondary border-opacity-50 small">
                             <span>{{ $item['nama'] }}</span>
                             <span>{{ $item['jumlah'] }}x @ Rp {{ number_format($item['harga'], 0, ',', '.') }}</span>
-                            <span class="fw-bold text-accent">Rp {{ number_format($item['harga'] * $item['jumlah'], 0, ',', '.') }}</span>
+                            <span class="fw-bold text-accent">Rp
+                                {{ number_format($item['harga'] * $item['jumlah'], 0, ',', '.') }}</span>
                         </li>
                     @endforeach
                 </ul>
@@ -48,7 +51,7 @@
             <hr class="border-accent opacity-75">
             <div class="d-flex justify-content-between h4 text-light fw-bold">
                 <span>GRAND TOTAL (DP + Menu):</span>
-                <span class="text-accent">Rp {{ number_format($this->totalMenu + $this->totalDP, 0, ',', '.') }}</span>
+                <span class="text-accent">Rp {{ number_format($this->totalBayar, 0, ',', '.') }}</span>
             </div>
         </div>
     </div>

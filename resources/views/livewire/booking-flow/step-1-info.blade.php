@@ -4,7 +4,6 @@
     <div class="row g-4">
         <div class="col-md-6">
             <label for="tanggal" class="form-label text-light">Tanggal Reservasi</label>
-            {{-- wire:model.live digunakan agar validasi dapat langsung berjalan di Livewire --}}
             <input type="date" wire:model.live="tanggal_reservasi" id="tanggal"
                 class="form-control bg-secondary text-light border-0 p-3" min="{{ now()->toDateString() }}" required>
             @error('tanggal_reservasi')
@@ -31,6 +30,6 @@
         </div>
     </div>
 
-    {{-- Tombol nextStep disembunyikan karena sudah ada di layout utama booking-flow.blade.php,
-        tapi kita bisa tetap memaksa validasi dengan tombol submit di sini jika mau --}}
+    {{-- Tombol nextStep ada di parent, tapi jika ini form, harus ada tombol submit --}}
+    <button type="submit" class="d-none">Submit</button>
 </form>
