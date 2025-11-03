@@ -29,7 +29,6 @@ class DenahMejaSelector extends Component
             $newMejaId = ($this->selectedMejaId === (int) $mejaId) ? null : (int) $mejaId;
             $this->selectedMejaId = $newMejaId;
 
-            // Kirim event ke komponen induk (BookingFlow)
             $this->dispatch('mejaDipilih', mejaId: $newMejaId)->to(BookingFlow::class);
         } else {
             session()->flash('error', 'Meja tidak tersedia atau kapasitas tidak mencukupi.');

@@ -1,7 +1,10 @@
 <div class="booking-flow-container container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-10">
-            <div class="custom-card p-4 p-md-5">
+
+            {{-- KOREKSI: Tambahkan margin-top (mt-5) ke custom-card untuk mendorongnya dari header --}}
+            <div class="custom-card p-4 p-md-5 mt-5 mb-5">
+
                 <h1 class="ff-serif text-accent mb-4 text-center">Proses Booking (Step {{ $step }}/6)</h1>
 
                 <nav class="mb-5">
@@ -19,7 +22,8 @@
                 </nav>
 
                 {{-- Indikator Loading Global --}}
-                <div wire:loading.delay.long class="text-center p-3 bg-secondary rounded mb-4">
+                <div wire:loading.delay.long class="text-center p-3 rounded mb-4"
+                    style="background-color: var(--bg-secondary);">
                     <p class="text-accent fw-bold mb-0">Memuat langkah selanjutnya...</p>
                 </div>
 
@@ -52,7 +56,8 @@
 
                 <div class="d-flex justify-content-between mt-5">
                     @if ($step > 1 && $step < 6)
-                        <button wire:click="prevStep" class="btn btn-outline-light" wire:loading.attr="disabled">&larr;
+                        {{-- DIKOREKSI: Menggunakan btn-outline-dark untuk tema terang --}}
+                        <button wire:click="prevStep" class="btn btn-outline-dark" wire:loading.attr="disabled">&larr;
                             Kembali</button>
                     @endif
 

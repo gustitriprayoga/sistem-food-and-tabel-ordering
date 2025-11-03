@@ -10,10 +10,12 @@
         {{-- Kontainer Denah: position-relative WAJIB ada --}}
         <div class="position-relative w-100 border border-secondary rounded-lg overflow-hidden bg-dark"
             style="background-image: url('{{ asset('storage/' . $denah->path_gambar) }}');
-            background-size: cover;
-            background-position: center;
-            padding-bottom: 56.25%;
-            height: 0;">
+                   background-size: cover;
+                   background-position: center;
+                   /* KOREKSI: Set padding-bottom untuk rasio (membuat tinggi) */
+                   padding-bottom: 56.25%;
+                   min-height: 400px;
+                   /* Hapus height: 0 yang menyebabkan container runtuh */">
 
 
             @foreach ($mejas as $meja)
@@ -22,24 +24,24 @@
                     $colorClass = match ($meja->status) {
                         'tersedia' => 'bg-success hover:bg-success-dark cursor-pointer',
                         'dipesan' => 'bg-warning cursor-not-allowed',
-                        default => 'bg-danger',
+                        'ditempati' => 'bg-danger cursor-not-allowed',
+                        'tidak_tersedia' => 'bg-dark-subtle cursor-not-allowed',
+                        default => 'bg-secondary',
                     };
                     $borderClass = $selectedMejaId == $meja->id ? 'border border-3 border-accent' : 'border-0';
-                    $sizeClass = 'width: 45px; height: 45px; margin-right: 50px;'; // Tambahkan jarak horizontal
 
-                    // --- KODE DEBUG PAKSA ---
-                    $forceStyle = 'left: 50%; top: 50%; transform: translate(-50%, -50%); display: inline-block;';
-                    // Jika Anda ingin melihat semua 15 meja: ubah left dan top sedikit untuk setiap meja
-                    $offset = $loop->index * 5; // Offset 5% per meja
-                    $forceStyle = 'left: ' . (5 + $offset) . '%; top: 50%; transform: translateY(-50%);';
-                    // --- END KODE DEBUG PAKSA ---
+                    // --- KODE POSISI PERMANEN DENGAN PIKSEL ---
+                    $sizeClass = 'width: 80px; height: 70px;'; // Mengikuti ukuran di admin panel
+                    // Transform untuk memusatkan elemen (karena Anda menggunakan ukuran 80x70)
+                    $centering = 'transform: translate(-50%, -50%);';
                 @endphp
 
-                <div wire:click="{{ $isTersedia ? 'selectMeja(' . $meja->id . ')' : '' }}"
-                    style="{{ $forceStyle }} {{ $sizeClass }}"
+                <div wire:click="{{ $isTersedia ? 'selectMeja(' . $meja->id . ')' : '' }}" {{-- KOREKSI UTAMA: Mengubah % menjadi px (sesuai data admin) --}}
+                    style="left: {{ $meja->posisi_x }}px; top: {{ $meja->posisi_y }}px; {{ $sizeClass }} {{ $centering }}"
                     title="{{ $meja->nama }} (Kapasitas: {{ $meja->kapasitas }} | Status: {{ $meja->status }})"
-                    class="position-absolute {{ $colorClass }} {{ $borderClass }} rounded-circle d-flex align-items-center justify-content-center text-white small fw-bold shadow-lg text-center">
-                    {{ substr($meja->nama, 0, 3) }}
+                    class="position-absolute {{ $colorClass }} {{ $borderClass }} rounded-lg d-flex align-items-center justify-content-center text-white small fw-bold shadow-lg text-center flex-column">
+                    <strong style="font-size: 1rem;">{{ $meja->nama }}</strong>
+                    <small style="font-size: 0.7rem;">{{ Str::title(str_replace('_', ' ', $meja->status)) }}</small>
                 </div>
             @endforeach
 

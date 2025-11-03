@@ -21,19 +21,41 @@
 
     <style>
         :root {
+            /* Warna Dasar Halaman */
+            --bg-light: #ffffff;
+            /* Putih bersih (Background Halaman) */
             --bg-dark: #111111;
-            --bg-secondary: #1a1a1a;
+            /* Hitam (Background Card Utama) */
+            --bg-secondary: #222222;
+            /* Abu-abu gelap (Background Input di Card) */
+            --bg-secondary-light: #f8f8f8;
+            /* Abu-abu terang (Background Area Sekunder) */
+
+            /* Warna Teks */
             --text-light: #e8e8e8;
+            /* Teks terang (digunakan di Card Hitam) */
+            --text-dark: #111111;
+            /* Teks gelap (digunakan di Background Putih) */
             --text-muted: #888888;
+            /* Teks muted/sekunder */
+
+            /* Aksen Oranye */
             --accent-color: #ff8c00;
+            /* Aksen Oranye */
             --accent-hover: #ffA500;
-            --border-color: #333333;
+
+            /* Border */
+            --border-color-light: #dee2e6;
+            /* Border terang */
+            --border-color-dark: #333333;
+            /* Border untuk card gelap */
         }
 
+        /* --- BODY DAN TIPE FONT --- */
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
+            background-color: var(--bg-light);
+            color: var(--text-dark);
             overflow-x: hidden;
         }
 
@@ -41,6 +63,7 @@
             font-family: 'Lora', serif;
         }
 
+        /* --- WARNA UMUM --- */
         .text-accent {
             color: var(--accent-color) !important;
         }
@@ -49,21 +72,81 @@
             background-color: var(--accent-color) !important;
         }
 
-        .bg-secondary {
-            background-color: var(--bg-secondary);
+        .text-light {
+            color: var(--text-light) !important;
         }
 
+        .bg-secondary {
+            background-color: var(--bg-secondary-light) !important;
+        }
+
+        .text-muted {
+            color: var(--text-muted) !important;
+        }
+
+        /* KOREKSI: Card Utama (Booking Flow) */
+        .custom-card {
+            background-color: var(--bg-dark);
+            /* Background HITAM */
+            color: var(--text-light);
+            /* Teks PUTIH */
+            border: 1px solid var(--border-color-dark);
+            border-radius: 1rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .custom-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 8px 20px rgba(255, 140, 0, 0.2);
+        }
+
+        /* --- NAVIGATION BAR --- */
         .navbar {
-            background-color: rgba(17, 17, 17, 0.7);
+            background-color: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color-light);
         }
 
+        .navbar .nav-link {
+            color: var(--text-dark);
+        }
+
+        .navbar .nav-link:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- INPUT FIELD DAN FORM CONTROL --- */
+        /* Input di dalam custom-card (Hitam) */
+        .custom-card .form-control {
+            background-color: var(--bg-secondary) !important;
+            /* Abu-abu gelap kontras */
+            color: var(--text-light) !important;
+            /* Teks terang */
+            border-color: var(--border-color-dark) !important;
+            padding: 1rem;
+            /* Padding lebih nyaman */
+        }
+
+        .custom-card .form-control:focus {
+            border-color: var(--accent-color) !important;
+            box-shadow: 0 0 0 0.25rem rgba(255, 140, 0, 0.25);
+        }
+
+        /* Input field di luar card (misalnya di area putih) */
+        .form-control.bg-secondary {
+            background-color: var(--bg-secondary-light) !important;
+            color: var(--text-dark) !important;
+            border-color: var(--border-color-light);
+        }
+
+        /* --- BUTTONS --- */
         .btn-accent {
             background-color: var(--accent-color);
             border-color: var(--accent-color);
-            color: #111;
+            color: var(--text-dark);
             font-weight: 600;
             padding: 0.8rem 2rem;
             transition: all 0.3s ease;
@@ -77,32 +160,16 @@
             box-shadow: 0 5px 20px rgba(255, 140, 0, 0.25);
         }
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease-out;
+        /* Tombol outline ('Kembali') di dalam card gelap */
+        .btn-outline-light {
+            color: var(--text-light);
+            border-color: var(--text-light);
         }
 
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .custom-card {
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 1rem;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .custom-card:hover {
-            transform: translateY(-5px);
+        .btn-outline-light:hover {
+            background-color: var(--accent-color);
+            color: var(--text-dark);
             border-color: var(--accent-color);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-close-white {
-            filter: invert(1);
         }
     </style>
 
