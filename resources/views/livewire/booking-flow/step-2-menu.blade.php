@@ -8,14 +8,15 @@
         @else
             <div class="space-y-6">
                 @foreach ($kategoriMenus as $kategori)
-                    <div class="custom-card p-4">
+                    <div class="custom-card p-4"
+                        style="background-color: var(--bg-secondary) !important; border-color: var(--border-color-dark) !important;">
                         <h4 class="text-light mb-3 border-bottom border-secondary pb-2">{{ $kategori->nama }}</h4>
                         <div class="row g-3">
                             @forelse (($kategori->menus ?? collect()) as $menu)
                                 @foreach ($menu->variasiMenus ?? collect() as $variasi)
                                     <div class="col-md-6">
-                                        <div
-                                            class="d-flex align-items-center bg-dark p-3 rounded shadow-sm border border-secondary">
+                                        <div class="d-flex align-items-center p-3 rounded shadow-sm border border-secondary"
+                                            style="background-color: var(--bg-dark) !important; border-color: var(--border-color-dark) !important;">
                                             <div class="flex-grow-1">
                                                 <p class="text-light mb-0">{{ $menu->nama }} <span
                                                         class="text-muted small">({{ $variasi->nama_variasi }})</span>
@@ -54,7 +55,7 @@
     {{-- Ringkasan Keranjang di Samping --}}
     <div class="col-lg-4">
         <div class="custom-card p-4 sticky-top" style="top: 100px;">
-            <h5 class="text-light mb-3 border-bottom border-secondary pb-2">Keranjang Anda</h5>
+            <h5 class="text-light mb-3 border-bottom border-secondary pb-2">🛒 Keranjang Anda</h5>
 
             @if (empty($keranjang ?? []))
                 <p class="text-muted text-center py-3">Keranjang kosong. Pilih menu di samping!</p>
@@ -67,7 +68,7 @@
                         </li>
                     @endforeach
                 </ul>
-                <div class="d-flex justify-content-between h6 text-light mt-3">
+                <div class="d-flex justify-content-between h6 text-light mt-3 border-top border-secondary pt-3">
                     <span>Total Menu:</span>
                     <span class="text-accent">Rp {{ number_format($this->totalMenu, 0, ',', '.') }}</span>
                 </div>

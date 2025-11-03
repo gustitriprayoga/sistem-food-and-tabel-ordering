@@ -2,8 +2,9 @@
     <h3 class="text-light mb-4 ff-serif text-accent">Langkah 3: Pilih Meja</h3>
 
     @if ($hanyaPesanMeja)
-        <div class="alert alert-warning custom-card bg-warning bg-opacity-10 border-start border-warning border-5 mb-4">
-            <p class="mb-0 text-dark">Anda belum memesan menu. Silakan pilih meja untuk **Reservasi Tempat Saja**.</p>
+        <div class="alert custom-card bg-warning bg-opacity-10 border-start border-warning border-5 mb-4 p-3"
+            style="background-color: var(--bg-secondary) !important;">
+            <p class="mb-0 text-light">Anda belum memesan menu. Silakan pilih meja untuk **Reservasi Tempat Saja**.</p>
         </div>
     @endif
 

@@ -4,12 +4,14 @@
     <p class="lead text-light">Simpan kode reservasi Anda:</p>
     <p class="display-4 fw-bold text-accent mb-4">{{ $kodeReservasi }}</p>
 
-    <div class="alert alert-info bg-secondary border-0 text-light p-4 shadow-lg mb-4">
+    <div class="alert alert-info border-0 text-light p-4 shadow-lg mb-4"
+        style="background-color: var(--bg-secondary) !important;">
         <p class="fw-bold mb-2">Instruksi Pembayaran</p>
         <p class="small text-muted mb-0">Status pembayaran Anda adalah
             **{{ $metode_pembayaran === 'kasir' ? 'pending (Bayar di Kasir)' : 'menunggu konfirmasi' }}**. Total yang
-            harus diurus: Rp {{ number_format($this->totalBayar, 0, ',', '.') }}</p>
+            harus diurus: <span class="fw-bold text-accent">Rp {{ number_format($this->totalBayar, 0, ',', '.') }}</span>
+        </p>
     </div>
 
-    <a href="{{ route('homepage') }}"d class="btn btn-outline-light mt-4">Kembali ke Beranda</a>
+    <a href="{{ route('homepage') }}" class="btn btn-outline-light mt-4">Kembali ke Beranda</a>
 </div>

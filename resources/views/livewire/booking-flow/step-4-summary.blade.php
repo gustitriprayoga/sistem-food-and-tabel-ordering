@@ -3,7 +3,8 @@
         <h3 class="text-light mb-4 ff-serif text-accent">Langkah 4: Ringkasan Pesanan</h3>
         <p class="text-muted mb-4">Pastikan semua detail di bawah ini sudah benar sebelum melanjutkan.</p>
 
-        <div class="custom-card p-4 mb-4">
+        <div class="p-4 mb-4"
+            style="background-color: var(--bg-secondary); border-radius: 0.5rem; border: 1px solid var(--border-color-dark);">
             <h4 class="text-light border-bottom border-secondary pb-2 mb-3">Informasi Reservasi</h4>
             <div class="row">
                 <div class="col-md-6 text-light mb-2">Tanggal: <span
@@ -18,11 +19,12 @@
             </div>
         </div>
 
-        <div class="custom-card p-4 mb-4">
+        <div class="p-4 mb-4"
+            style="background-color: var(--bg-secondary); border-radius: 0.5rem; border: 1px solid var(--border-color-dark);">
             <h4 class="text-light border-bottom border-secondary pb-2 mb-3">Item Menu (Pre-Order)</h4>
 
             @if (empty($keranjang ?? []))
-                <p class="text-warning">Tidak ada menu yang dipesan. Hanya reservasi tempat.</p>
+                <p class="text-muted">Tidak ada menu yang dipesan. Hanya reservasi tempat.</p>
             @else
                 <ul class="list-unstyled">
                     @foreach ($keranjang as $id => $item)
@@ -38,7 +40,8 @@
             @endif
         </div>
 
-        <div class="custom-card p-4 bg-dark">
+        <div class="p-4"
+            style="background-color: var(--bg-secondary); border-radius: 0.5rem; border: 1px solid var(--border-color-dark);">
             <h4 class="text-light border-bottom border-secondary pb-2 mb-3">Total Biaya</h4>
             <div class="d-flex justify-content-between h6 text-light">
                 <span>Total Menu:</span>
