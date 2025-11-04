@@ -6,7 +6,8 @@ use App\Livewire\MenuPage;
 use App\Livewire\ReservasiPage;
 use App\Livewire\PembayaranPage;
 use App\Livewire\BookingFlow;
-use App\Livewire\MejaTester; // Import komponen pengujian
+use App\Livewire\MejaTester;
+use App\Livewire\CheckReservasi;
 
 
 // --- Rute Halaman Utama ---
@@ -26,3 +27,6 @@ Route::get('/pembayaran/sukses/{kode}', function ($kode) {
     // Memastikan view sukses menggunakan layout yang sama
     return view('pembayaran-sukses', compact('kode'))->layout('components.layouts.app');
 })->name('pembayaran.sukses');
+
+
+Route::get('/cek-reservasi', CheckReservasi::class)->name('reservasi.check');

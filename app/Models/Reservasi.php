@@ -26,5 +26,10 @@ class Reservasi extends Model
     {
         return $this->hasMany(DetailReservasi::class);
     }
+
+    public function detailReservasis()
+    {
+        return $this->hasMany(DetailReservasi::class);
+    }
 }
 
